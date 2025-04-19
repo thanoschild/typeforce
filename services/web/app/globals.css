@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+/* @import './fonts.css'; */
+
+:root {
+  /* Theme variables */
+  --bg-color: #ffffff;
+  --main-color: #1a73e8;
+  --caret-color: #1a73e8;
+  --sub-color: #666666;
+  --sub-alt-color: #888888;
+  --text-color: #000000;
+  --error-color: #d32f2f;
+  --error-extra-color: #ef5350;
+  --colorful-error-color: #ff1744;
+  --colorful-error-extra-color: #ff5252;
+}
+
+/* Font wrapper styles */
+.font-wrapper {
+  display: contents;
+}
+
+/* Add smooth transitions for theme changes */
+* {
+  transition: background-color 0.05s ease-in-out, color 0.05s ease-in-out, border-color 0.05s ease-in-out;
+}
+
+@layer utilities {
+  /* Theme utility classes */
+  .bg-theme-bg { background-color: var(--bg-color); }
+  .bg-theme-main { background-color: var(--main-color); }
+  .bg-theme-sub { background-color: var(--sub-color); }
+  .bg-theme-error { background-color: var(--error-color); }
+
+  .text-theme-text { color: var(--text-color); }
+  .text-theme-main { color: var(--main-color); }
+  .text-theme-sub { color: var(--sub-color); }
+  .text-theme-bg { color: var(--bg-color); }
+
+  .border-theme-sub { border-color: var(--sub-color); }
+  .border-theme-main { border-color: var(--main-color); }
+
+  /* Hover states with instant color changes */
+  .hover\:bg-theme-main:hover { 
+    background-color: var(--main-color);
+    transition-duration: 50ms;
+  }
+  .hover\:bg-theme-error:hover { 
+    background-color: var(--error-color);
+    transition-duration: 50ms;
+  }
+  .hover\:text-theme-main:hover { 
+    color: var(--main-color);
+    transition-duration: 50ms;
+  }
+  .hover\:text-theme-bg:hover { 
+    color: var(--bg-color);
+    transition-duration: 50ms;
+  }
+  .hover\:border-theme-main:hover { 
+    border-color: var(--main-color);
+    transition-duration: 50ms;
+  }
+
+  /* Focus states */
+  .focus\:border-theme-main:focus { border-color: var(--main-color); }
+  .focus\:text-theme-main:focus { color: var(--main-color); }
+
+  /* Active states */
+  .active\:scale-95:active { 
+    transform: scale(0.95);
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 100ms;
+  }
+}
+
+/* Global transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 50ms;
+}
+
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 50ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 100ms;
+}
