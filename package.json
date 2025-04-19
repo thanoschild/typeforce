@@ -5,7 +5,9 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "db:setup": "cd services/db && npm run db:setup",
+    "prisma:generate": "cd services/db && npm run db:generate"
   },
   "keywords": [],
   "author": "",
