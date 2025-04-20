@@ -14,7 +14,7 @@ export default function Footer() {
 
     return (
         <footer className='w-full'>
-            <div className='flex items-center justify-between gap-3 px-12'>
+            <div className='flex items-center justify-between gap-3'>
                 <div className='gap-6'>
                     <Button asChild className='p-0 text-sm' variant='text'>
                         <a href='https://github.com/thanoschild' target='_blank' rel='noopener noreferrer'>

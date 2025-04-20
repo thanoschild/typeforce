@@ -6,7 +6,7 @@ export interface TextProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 export const Text = forwardRef<HTMLDivElement, TextProps>(function Text(
-  { className, dimmed = false, ...props },
+  {className, dimmed = false, ...props },
   ref,
 ) {
   return (

@@ -7,7 +7,6 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { FontProvider } from '../context/FontContext';
 import { TypingTestProvider } from '@/context/TypingTestContext';
 import { FontLayout } from '@/components/layout/FontLayout';
-import { fonts } from '@/utils/fonts';
 import '@/static/fonts/fonts.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,7 +22,7 @@ export default function RootLayout(props: { children: ReactNode }) {
       lang="en"
     >
       <body
-        className={`flex justify-center bg-theme-bg font-default transition-colors ${inter.className}`}
+        className={`bg-theme-bg font-default transition-colors ${inter.className}`}
       >
         <TypingTestProvider>
           <ThemeProvider>

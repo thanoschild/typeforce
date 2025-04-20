@@ -46,7 +46,7 @@ export function Header() {
 
     return (
         <main className='relative z-10 w-full select-none'>
-            <div className='flex items-center justify-between gap-3 px-12'>
+            <div className='flex items-center justify-between gap-3'>
                 <div className="flex items-center gap-3">
                     <div className={twJoin(
                         'flex cursor-pointer items-center gap-2 transition-transform active:translate-y-0.5',
