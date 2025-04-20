@@ -17,7 +17,7 @@ export default function Interface() {
   const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
 
   const [mode, setMode] = useState<string>("words");
-  const [modeOption, setModeOption] = useState<number>(5);
+  const [modeOption, setModeOption] = useState<number>(10);
 
   const [timePassed, setTimePassed] = useState<number>(0);
   const [timeStarted, setTimeStarted] = useState<boolean>(false);

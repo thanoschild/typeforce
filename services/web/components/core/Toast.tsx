@@ -1,11 +1,10 @@
 'use client';
 
-import { AnimatePresence, type HTMLMotionProps, m, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { motion, AnimatePresence, type HTMLMotionProps, m, useAnimation } from 'framer-motion';
 import { type Toast, resolveValue, toast, useToasterStore } from 'react-hot-toast';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Text } from '@/components/core/Text';
-import { Transition } from '@/components/core/Transition';
 
 export interface ToastProps extends HTMLMotionProps<'div'> {
   progressBarProps?: HTMLMotionProps<'div'>;
@@ -41,7 +40,7 @@ export function Toast({ className, progressBarProps: _progressBarProps, t, ...pr
   return (
     <AnimatePresence>
       {t.visible && (
-        <Transition
+        <motion.div
           className={twMerge(
             'relative min-w-xs max-w-xs cursor-default overflow-hidden rounded-lg bg-sub-alt px-4 pt-3 pb-3.5 text-text shadow-xl transition-colors',
             className,
@@ -81,7 +80,7 @@ export function Toast({ className, progressBarProps: _progressBarProps, t, ...pr
               {...progressBarProps}
             />
           )}
-        </Transition>
+        </motion.div>
       )}
     </AnimatePresence>
   );

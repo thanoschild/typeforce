@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from '@/context/ThemeContext';
-import { Button } from './Button';
+import { Button } from '@/components/ui/button';
 import { Tooltip } from './Tooltip';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export function ThemeSelector() {
         <div className="relative">
             <Tooltip label="Change Theme">
                 <Button
-                    variant="text"
+                    variant="link"
                     className="px-2 text-xl"
                     onClick={() => setIsOpen(!isOpen)}
                 >
@@ -43,7 +43,7 @@ export function ThemeSelector() {
                                         currentTheme === theme.name && 'text-main'
                                     )}
                                 >
-                                    {theme.displayName}
+                                    {theme.name}
                                 </button>
                             ))}
                         </div>

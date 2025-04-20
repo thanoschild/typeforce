@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Button } from '@/components/core/Button';
+import { Button } from '@/components/ui/button';
 import { RiGithubFill } from 'react-icons/ri';
 import { useFont } from '@/context/FontContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -16,7 +16,7 @@ export default function Footer() {
         <footer className='w-full'>
             <div className='flex items-center justify-between gap-3'>
                 <div className='gap-6'>
-                    <Button asChild className='p-0 text-sm' variant='text'>
+                    <Button asChild className='p-0 text-sm' variant='link'>
                         <a href='https://github.com/thanoschild' target='_blank' rel='noopener noreferrer'>
                             <RiGithubFill />
                             thanoschild
@@ -26,14 +26,14 @@ export default function Footer() {
                 <div className='flex items-center gap-6'>
                     <Button
                         className='p-0 text-sm'
-                        variant='text'
+                        variant='link'
                     >
                         <MdOutlineFontDownload />
                         <p>{currentFont}</p>
                     </Button>
                     <Button
                         className='p-0 text-sm'
-                        variant='text'
+                        variant='link'
                     >
                         <MdOutlinePalette />
                         <p>{currentTheme}</p>
