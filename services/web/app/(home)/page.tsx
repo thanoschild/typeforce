@@ -1,17 +1,13 @@
-"use client";
-
-import { useFont } from "@/context/FontContext";
-import { TypingTestProvider } from "@/context/TypingTestContext";
 import Interface from "@/components/typing/Interface";
+import Modes from "@/components/typing/Modes";
 
 export default function Home() {
-  const { currentFont } = useFont();
+  
 
   return (
-    <TypingTestProvider>
       <main className="">
+        <Modes/>
         <Interface />
       </main>
-    </TypingTestProvider>
   );
 }

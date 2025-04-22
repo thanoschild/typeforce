@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useTypingTest } from "@/context/TypingContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateAccuracy, calculateWPM, cn } from "@/utils/setting";
 import { generateRandomWords } from "@/utils/setting";
@@ -9,15 +10,13 @@ import Result from "./Result";
 import Modes from "./Modes";
 
 export default function Interface() {
+  const { mode, setMode, modeOption, setModeOption } = useTypingTest();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [userInput, setUserInput] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [mistakes, setMistakes] = useState<number[]>([]);
   const [caretPosition, setCaretPosition] = useState({ top: 0, left: 0 });
   const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
-
-  const [mode, setMode] = useState<string>("words");
-  const [modeOption, setModeOption] = useState<number>(10);
 
   const [timePassed, setTimePassed] = useState<number>(0);
   const [timeStarted, setTimeStarted] = useState<boolean>(false);
@@ -244,13 +243,6 @@ export default function Interface() {
           transition={{ duration: 0.5 }}
           className="w-full px-12 flex flex-col items-center "
         >
-          <Modes
-            mode={mode}
-            setMode={setMode}
-            modeOption={modeOption}
-            setModeOption={setModeOption}
-          />
-          
           <motion.div
             ref={containerRef}
             className="relative text-2xl leading-relaxed tracking-wide mt-8"
