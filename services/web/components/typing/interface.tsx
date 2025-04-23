@@ -236,16 +236,16 @@ export default function Interface() {
     <AnimatePresence mode="wait">
       {!raceCompleted ? (
         <motion.div
-          key="typing"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-          className="w-full px-12 flex flex-col items-center "
+        key="typing"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+        className="w-full px-12 py-8"
         >
           <motion.div
             ref={containerRef}
-            className="relative text-2xl leading-relaxed tracking-wide mt-8"
+            className="relative text-2xl leading-relaxed tracking-wide" // Added text-center
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}

@@ -58,7 +58,7 @@ export function Header() {
             <LogoIcon
               variant="main"
               className={twJoin(
-                "animate-fade-in pt-2",
+                "animate-fade-in pt-2 ml-4",
                 isUserTyping ? "text-sub" : "text-main"
               )}
             />
