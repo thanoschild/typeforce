@@ -14,6 +14,8 @@ interface TypingContextType {
   setMode: (mode: Mode) => void;
   modeOption: ModeOption;
   setModeOption: (option: ModeOption) => void;
+  raceCompleted: boolean;
+  setRaceCompleted: (completed: boolean) => void;
 }
 
 const TypingContext = createContext<TypingContextType | undefined>(undefined);
@@ -21,9 +23,10 @@ const TypingContext = createContext<TypingContextType | undefined>(undefined);
 export function TypingProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<Mode>("words");
   const [modeOption, setModeOption] = useState<ModeOption>(10);
+  const [raceCompleted, setRaceCompleted] = useState<boolean>(false);
     
   return (
-    <TypingContext.Provider value={{ mode, setMode, modeOption, setModeOption }}>
+    <TypingContext.Provider value={{ mode, setMode, modeOption, setModeOption, raceCompleted, setRaceCompleted }}>
       {children}
     </TypingContext.Provider>
   );

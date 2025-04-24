@@ -17,7 +17,7 @@ export type ModesProps = {
   
 
 export default function Modes() {
-  const { mode, setMode, modeOption, setModeOption } = useTypingTest();
+  const { mode, setMode, modeOption, setModeOption, raceCompleted, setRaceCompleted } = useTypingTest();
 
   const handleModeChange = (mode: string) => {
     if (mode === "time") {
@@ -29,7 +29,7 @@ export default function Modes() {
     }
   };
 
-  return (
+  return !raceCompleted ? (
     <div className="m-8">
       <motion.div
         className="mx-auto w-fit flex items-center justify-center px-3 py-3 rounded-xl bg-theme-sub-alt"
@@ -90,5 +90,6 @@ export default function Modes() {
           ))}
       </motion.div>
     </div>
-  )
+        ): null
+    
 }

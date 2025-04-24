@@ -10,7 +10,7 @@ import Result from "./Result";
 import Modes from "./Modes";
 
 export default function Interface() {
-  const { mode, setMode, modeOption, setModeOption } = useTypingTest();
+  const { mode, setMode, modeOption, setModeOption, raceCompleted, setRaceCompleted } = useTypingTest();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [userInput, setUserInput] = useState<string>("");
   const [text, setText] = useState<string>("");
@@ -21,7 +21,6 @@ export default function Interface() {
   const [timePassed, setTimePassed] = useState<number>(0);
   const [timeStarted, setTimeStarted] = useState<boolean>(false);
   const [raceStarted, setRaceStarted] = useState<boolean>(false);
-  const [raceCompleted, setRaceCompleted] = useState<boolean>(false);
 
   const [wpm, setWpm] = useState<number>(0);
   const [accuracy, setAccuracy] = useState<number>(0);
@@ -241,7 +240,7 @@ export default function Interface() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
-        className="w-full px-12 py-8"
+        className="grid place-content-center w-full px-12 py-8"
         >
           <motion.div
             ref={containerRef}

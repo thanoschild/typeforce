@@ -1,7 +1,13 @@
 "use client";
 
-import { useTheme } from '@/context/ThemeContext';
-import { useFont } from '@/context/FontContext';
+import { useTheme } from "@/context/ThemeContext";
+import { useFont } from "@/context/FontContext";
+import { motion } from "framer-motion";
+import { SiSpeedtest } from "react-icons/si";
+import { TbTargetArrow } from "react-icons/tb";
+import { TbClockHour4 } from "react-icons/tb";
+import { GrPowerCycle } from "react-icons/gr";
+import { Tooltip as UserToolTip } from "../core/Tooltip";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,8 +19,11 @@ import {
   Legend,
   ChartData,
   ChartOptions,
+  Filler,
 } from "chart.js";
 import React from "react";
+import StatCard from "../core/StatCard";
+import { Button } from "../ui/button";
 
 ChartJS.register(
   LineElement,
@@ -22,7 +31,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 export type ResultProps = {
@@ -33,6 +43,11 @@ export type ResultProps = {
   onRestart: () => void;
   mode: string;
   modeOption: number;
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function Result({
@@ -46,7 +61,7 @@ export default function Result({
 }: ResultProps) {
   const { themeColors } = useTheme();
   const { currentFont } = useFont();
-  const buckets = new Map<number, number[]>(); 
+  const buckets = new Map<number, number[]>();
 
   wpmData.forEach(({ time, wpm /* already WPS */ }) => {
     const arr = buckets.get(time) ?? [];
@@ -66,14 +81,16 @@ export default function Result({
     labels: secs.map((s) => `${s}s`),
     datasets: [
       {
-        label: "WPM",
+        type: "line" as const,
+        label: " WPM",
         data: series,
         borderColor: themeColors.main,
-        backgroundColor: `${themeColors.main}20`,
-        tension: 0.4,
-        cubicInterpolationMode: "monotone", 
-        fill: true,
+        backgroundColor: "rgba(0, 0, 0, 0.1)", // Add transparency to the fill color
+        borderWidth: 3,
+        tension: 0.3,
+        fill: true, // This enables the fill
         pointRadius: 2,
+        order: 3,
       },
     ],
   } satisfies ChartData<"line">;
@@ -81,86 +98,97 @@ export default function Result({
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: { intersect: false, mode: "index" },
     animation: false,
     scales: {
       y: {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Words per Minute',
-          color: themeColors.sub, // Add color for better visibility
+          text: "Words per Minute",
+          color: themeColors.sub,
           font: {
             size: 14,
-            weight: 'bold',
-            family: currentFont // Use the current font from context
-          }
+            weight: "bold",
+            family: currentFont,
+          },
         },
-        grid: { 
+        grid: {
           color: themeColors.subAlt,
-          drawBorder: false
+          border: false,
         },
         ticks: {
-          color: themeColors.sub // Add color for tick labels
-        }
+          color: themeColors.sub,
+        },
       },
       x: {
         title: {
           display: true,
-          text: 'Time (seconds)',
+          text: "Time (seconds)",
           color: themeColors.sub,
           font: {
             size: 14,
-            weight: 'bold',
-            family: currentFont
-          }
+            weight: "bold",
+            family: currentFont,
+          },
         },
-        ticks: { 
+        ticks: {
           maxRotation: 0,
-          color: themeColors.sub
+          color: themeColors.sub,
         },
-        grid: { 
+        grid: {
           color: themeColors.subAlt,
-          drawBorder: false
-        }
+          drawBorder: false,
+        },
       },
     },
     plugins: {
       legend: { display: false },
     },
-} as const;
-  
+  } as const;
+
   console.log("wpmData", wpmData);
 
   return (
-    <div className="space-y-6 px-12 py-6">
-      {/* <h2 className="text-2xl font-bold">Result</h2> */}
-
-      <div className="grid grid-cols-2 gap-4 text-xl font-bold text-theme-main">
-        <div>
-          <span className="text-theme-sub">Mode: </span>
-          {mode} ({modeOption})
-        </div>
-        <div>
-          <span className="text-theme-sub">Time:</span> {time}s
-        </div>
-        <div>
-          <span className="text-theme-sub">WPM:</span> {wpm}
-        </div>
-        <div>
-          <span className="text-theme-sub">Accuracy:</span> {accuracy.toFixed(2)}%
-        </div>
-      </div>
-
-      <div className="w-full h-[250px]">
-        <Line data={data} options={options} />
-      </div>
-
-      <button
-        onClick={onRestart}
-        className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+    <div className="space-y-10 px-12 py-8 flex flex-col items-center justify-center w-full">
+      <motion.div
+        variants={itemVariants}
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-24"
       >
-        Restart
-      </button>
+        <StatCard
+          icon={<SiSpeedtest className="text-theme-sub text-7xl" />}
+          title="WPM"
+          value={wpm}
+        />
+        <StatCard
+          icon={<TbTargetArrow className="text-theme-sub text-7xl" />}
+          title="Accuracy"
+          value={`${accuracy.toFixed(2)}%`}
+        />
+        <StatCard
+          icon={<TbClockHour4 className="text-theme-sub text-7xl" />}
+          title="Time"
+          value={`${time}s`}
+        />
+      </motion.div>
+
+      <div className="relative h-[250px] w-full">
+        <Line
+          data={data}
+          options={options}
+          className="!w-full"
+        />
+      </div>
+
+      <UserToolTip label="Restart Test">
+        <Button
+          onClick={onRestart}
+          className="rounded hover:text-theme-main transition-colors px-4 py-2 [&>svg]:!size-8"
+          variant="link"
+        >
+          <GrPowerCycle className="w-10 h-10 text-theme-sub hover:text-theme-main stroke-[2]" />
+        </Button>
+      </UserToolTip>
     </div>
   );
 }

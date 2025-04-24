@@ -32,7 +32,7 @@ const isLoading = false;
 
 const ICON_CLASS = "text-10xl";
 const BUTTONS = [
-  { label: "Home", href: "/", icon: <TbKeyboard className={ICON_CLASS} /> },
+  { label: "Home", href: "/", icon: <TbKeyboard /> },
   { label: "Leaderboards", href: "/leaderboards", icon: <LuCrown /> },
   { label: "About", href: "/about", icon: <RiInformation2Line /> },
   { label: "Settings", href: "/settings", icon: <MdOutlineSettings /> },
