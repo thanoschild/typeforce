@@ -13,9 +13,9 @@ import { LogoIcon } from "@/components/core/LogoIcon";
 import { Text } from "@/components/core/Text";
 import { Tooltip } from "../core/Tooltip";
 import Link from "next/link";
-// import { Button } from '../core/Button';
 import { Avatar } from "../profile/Avatar";
 import { Button } from "@/components/ui/button";
+import { NaveLinks } from "@/constants";
 
 interface UserType {
   name: string;
@@ -30,15 +30,6 @@ const userData: UserType | null = null;
 // };
 const isLoading = false;
 
-const ICON_CLASS = "text-10xl";
-const BUTTONS = [
-  { label: "Home", href: "/", icon: <TbKeyboard /> },
-  { label: "Leaderboards", href: "/leaderboards", icon: <LuCrown /> },
-  { label: "About", href: "/about", icon: <RiInformation2Line /> },
-  { label: "Settings", href: "/settings", icon: <MdOutlineSettings /> },
-  { label: "Theme", href: "/theme", icon: <IoColorPaletteOutline /> },
-  { label: "Font", href: "/font", icon: <MdOutlineFontDownload /> },
-];
 
 const testId: string = "testId";
 
@@ -47,8 +38,7 @@ export function Header() {
   const [isUserTyping, setIsUserTyping] = useState(false);
 
   return (
-    <main className="relative z-10 w-full select-none">
-      <div className="flex items-center justify-between gap-3">
+      <main className="w-full h-20 z-10 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
             className={twJoin(
@@ -83,13 +73,11 @@ export function Header() {
 
           {/* Navigation and User Section */}
           <div className="flex items-center gap-3 pt-1">
-            {BUTTONS.map(({ label, href, icon }) => (
+            {NaveLinks.map(({ label, href, icon }) => (
               <Tooltip key={label} label={label}>
-                <Button asChild className="px-2" variant="link">
-                  <Link href={href}>
-                    <span className="[&>svg]:!size-5">{icon}</span>
-                  </Link>
-                </Button>
+                <Link href={href} className="px-2">
+                  <span className="text-xl">{icon}</span>
+                </Link>
               </Tooltip>
             ))}
           </div>
@@ -120,24 +108,17 @@ export function Header() {
                   <RiLoaderLine className="animate-spin text-main" />
                 </div>
               ) : (
-                <Button className="text-xl" variant="link">
-                  <span className="[&>svg]:!size-5">
-                    <BiLogOutCircle />
-                  </span>
-                </Button>
+                <span className="">
+                  <BiLogOutCircle />
+                </span>
               )
             ) : (
-              <Button asChild className="text-xl" variant="link">
-                <Link href="/login">
-                  <span className="[&>svg]:!size-5">
-                    <BiLogInCircle />
-                  </span>
-                </Link>
-              </Button>
+              <Link href="/login">
+                <BiLogInCircle className="text-xl text-theme-sub hover:text-theme-text" />
+              </Link>
             )}
           </Tooltip>
         </div>
-      </div>
-    </main>
+      </main>
   );
 }

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { cn } from "@/utils/setting";
+import { cn } from "@/lib/utils";
 import { RefObject } from "react";
 
 export type CharacterStatus = "correct" | "error" | "pending";

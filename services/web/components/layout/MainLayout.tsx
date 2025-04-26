@@ -19,7 +19,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
 
   return (
     <main
-      className="grid grid-rows-[auto_1fr_auto] min-h-screen gap-5 px-4 sm:px-8 md:px-16 lg:px-20 py-8"
+      className="grid grid-rows-[auto_1fr_auto] min-h-screen gap-5 px-4 sm:px-8 md:px-16 lg:px-20"
     >
       <Header />
       <div className="">{children}</div>

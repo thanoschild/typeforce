@@ -30,7 +30,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
             {children}
             <div 
                 className={twMerge(
-                    'absolute left-1/2 -translate-x-1/2 top-full mt-1',
+                    'absolute left-1/2 -translate-x-1/2 top-full mt-3',
                     'opacity-0 invisible',
                     show && 'opacity-100 visible',
                     'transition-all duration-200',

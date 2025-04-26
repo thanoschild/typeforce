@@ -2,7 +2,7 @@
 
 import { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { useTypingTest } from "@/context/TypingContext";
-import { cn } from "@/utils/setting";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { modes, timeOptions, wordOptions } from "@/constants";
 import { TbClockHour4 } from "react-icons/tb";

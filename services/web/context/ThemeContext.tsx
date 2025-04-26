@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { ThemeColors, defaultTheme, getTheme, themeColorVariables } from '@/utils/theme';
+import { ThemeColors, defaultTheme, getTheme, themeColorVariables } from '@/lib/theme';
 
 interface ThemeContextValue {
   currentTheme: string;

@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useTypingTest } from "@/context/TypingContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { calculateAccuracy, calculateWPM, cn } from "@/utils/setting";
-import { generateRandomWords } from "@/utils/setting";
+import { calculateAccuracy, calculateWPM, cn } from "@/lib/utils";
+import { generateRandomWords } from "@/lib/utils";
 import Characters, { Character } from "./Characters";
 import Result from "./Result";
 import Modes from "./Modes";
@@ -240,7 +240,7 @@ export default function Interface() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
-        className="grid place-content-center w-full px-12 py-8"
+        className="grid place-content-center w-full"
         >
           <motion.div
             ref={containerRef}

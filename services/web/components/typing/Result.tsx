@@ -150,7 +150,7 @@ export default function Result({
   console.log("wpmData", wpmData);
 
   return (
-    <div className="space-y-10 px-12 py-8 flex flex-col items-center justify-center w-full">
+    <div className="space-y-10 flex flex-col items-center justify-center w-full">
       <motion.div
         variants={itemVariants}
         className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-24"
