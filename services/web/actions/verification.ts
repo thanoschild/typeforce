@@ -1,35 +1,29 @@
 "use server";
 
 import { getVerificationTokenByToken } from "@/actions/token";
-import { getUserByEmail } from "@/actions/user";
 import prisma from "db/src";
 
 export const verification = async (token: string) => {
-  const existingToken = await getVerificationTokenByToken(token);
-
-  if (!existingToken) {
+  const currentUser = await getVerificationTokenByToken(token);
+  if (!currentUser) {
     return { success: false, message: "Invalid token" };
   }
 
-  const hasExpired = new Date(existingToken.expiresAt) < new Date();
-
+  const hasExpired = new Date(currentUser.expiresAt) < new Date();
   if (hasExpired) {
     return { success: false, message: "Token has expired" };
   }
 
-  const existingUser = await getUserByEmail(existingToken.email);
-
-  if (!existingUser) {
-    return { success: false, message: "Email not found" };
-  }
-
-  await prisma.users.update({
-    where: { id: existingUser.id },
-    data: { emailVerified: new Date(), email: existingToken.email },
-  });
+  await prisma.users.create({
+    data: {
+       username: currentUser.username,
+       email: currentUser.email,
+       password: currentUser.password,
+    }
+ });
 
   await prisma.verification_tokens.delete({
-    where: { id: existingToken.id },
+    where: { id: currentUser.id },
   });
 
   return { success: true, message: "Your email has been successfully verified!" };

@@ -9,9 +9,8 @@ datasource db {
 
 model users {
   id            String    @id @default(cuid()) @map("_id")
-  username      String?
+  username      String    @unique
   email         String    @unique
-  emailVerified DateTime?
   password      String?
   image         String?
   accounts      accounts[]
@@ -44,7 +43,9 @@ model accounts {
 
 model verification_tokens {
   id        String   @id @default(cuid()) @map("_id")
+  username  String   
   email     String
+  password  String
   token     String   @unique
   expiresAt DateTime
 

@@ -46,6 +46,7 @@ export default function RegisterForm() {
       startTransition(async () => {
         try {
           const result = await register(formData);
+          console.log(result);
   
         //   if (result.success) {
         //     toast.success(result.message);

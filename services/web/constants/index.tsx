@@ -3,6 +3,8 @@ import { MdOutlineSettings } from "react-icons/md";
 import { RiInformation2Line } from "react-icons/ri";
 import { TbKeyboard } from "react-icons/tb";
 
+export const BRAND_NAME = "TurboType";
+
 export const modes = ["time", "words"];
 export const timeOptions = [15, 30, 60];
 export const wordOptions = [10, 25, 50];

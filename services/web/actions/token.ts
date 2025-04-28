@@ -1,5 +1,7 @@
+import { SignUpFormData } from "@/types/form";
 import prisma from "db/src";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcryptjs";
 
 export const getVerificationTokenByEmail = async (email: string) => {
   try {
@@ -29,7 +31,8 @@ export const getVerificationTokenByToken = async (token: string) => {
   }
 };
 
-export const generateVerificationToken = async (email: string) => {
+export const generateVerificationToken = async (data: SignUpFormData) => {
+  const { username, email, password } = data;
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
 
@@ -42,12 +45,15 @@ export const generateVerificationToken = async (email: string) => {
       },
     });
   }
-
+  
+  const hashedPassword = await bcrypt.hash(password, 10);
   const verificationToken = await prisma.verification_tokens.create({
     data: {
+      username,
       token,
       expiresAt: expires,
       email,
+      password: hashedPassword,
     },
   });
 
