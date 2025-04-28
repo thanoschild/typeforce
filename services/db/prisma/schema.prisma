@@ -9,7 +9,7 @@ datasource db {
 
 model users {
   id            String    @id @default(cuid()) @map("_id")
-  name          String?
+  username      String?
   email         String    @unique
   emailVerified DateTime?
   password      String?

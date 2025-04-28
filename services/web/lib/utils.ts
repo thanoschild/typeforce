@@ -2,9 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { generate } from "random-words";
 import { tests } from "@prisma/client";
-import { getVerificationTokenByEmail } from "@/db/token";
-import prisma from "db/src";
-import { v4 as uuidv4 } from "uuid";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -91,31 +88,6 @@ export const getAllTimeBestScores = (tests: tests[]) => {
   });
 
   return bestScores;
-};
-
-export const generateVerificationToken = async (email: string) => {
-  const token = uuidv4();
-  const expires = new Date(new Date().getTime() + 3600 * 1000);
-
-  const existingToken = await getVerificationTokenByEmail(email);
-
-  if (existingToken) {
-    await prisma.verification_tokens.delete({
-      where: {
-        id: existingToken.id,
-      },
-    });
-  }
-
-  const verificationToken = await prisma.verification_tokens.create({
-    data: {
-      token,
-      expiresAt: expires,
-      email,
-    },
-  });
-
-  return verificationToken;
 };
 
 export const generateRoomCode = () => {

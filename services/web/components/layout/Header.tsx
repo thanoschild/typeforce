@@ -38,7 +38,7 @@ export function Header() {
   const [isUserTyping, setIsUserTyping] = useState(false);
 
   return (
-      <main className="w-full h-20 z-10 flex items-center justify-between gap-3">
+      <main className="w-full py-8 z-10 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
             className={twJoin(

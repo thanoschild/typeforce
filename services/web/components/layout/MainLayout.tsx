@@ -19,10 +19,10 @@ export function MainLayout({ children }: { children: ReactNode }) {
 
   return (
     <main
-      className="grid grid-rows-[auto_1fr_auto] min-h-screen gap-5 px-4 sm:px-8 md:px-16 lg:px-20"
+      className="flex flex-col min-h-screen px-4 sm:px-8 md:px-16 lg:px-20"
     >
       <Header />
-      <div className="">{children}</div>
+      <div className="flex flex-1 flex-col">{children}</div>
       <Footer />
       <Toaster
         containerClassName="!inset-6"

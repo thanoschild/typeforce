@@ -19,6 +19,12 @@
   --colorful-error-extra-color: #ff5252;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+
 /* Font wrapper styles */
 .font-wrapper {
   display: contents;

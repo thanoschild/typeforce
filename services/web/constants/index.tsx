@@ -33,3 +33,13 @@ export const NaveLinks = [
         ),
       },
     ];
+
+
+/*LINKS*/
+if (!process.env.NEXT_PUBLIC_FRONTEND_URL) {
+  throw new Error("NEXT_PUBLIC_FRONTEND_URL is not defined");
+}
+const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL;
+
+export const AUTH_LINK = FRONTEND_URL + "/auth";
+export const AUTH_VERIFICATION_LINK = FRONTEND_URL + "/auth/verification";

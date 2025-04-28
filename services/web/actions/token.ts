@@ -1,0 +1,57 @@
+import prisma from "db/src";
+import { v4 as uuidv4 } from "uuid";
+
+export const getVerificationTokenByEmail = async (email: string) => {
+  try {
+    const token = await prisma.verification_tokens.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return token;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getVerificationTokenByToken = async (token: string) => {
+  try {
+    const verificationToken = await prisma.verification_tokens.findFirst({
+      where: {
+        token,
+      },
+    });
+
+    return verificationToken;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const generateVerificationToken = async (email: string) => {
+  const token = uuidv4();
+  const expires = new Date(new Date().getTime() + 3600 * 1000);
+
+  const existingToken = await getVerificationTokenByEmail(email);
+
+  if (existingToken) {
+    await prisma.verification_tokens.delete({
+      where: {
+        id: existingToken.id,
+      },
+    });
+  }
+
+  const verificationToken = await prisma.verification_tokens.create({
+    data: {
+      token,
+      expiresAt: expires,
+      email,
+    },
+  });
+
+  return verificationToken;
+};
+
+

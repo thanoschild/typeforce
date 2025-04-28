@@ -30,7 +30,7 @@ export default function Modes() {
   };
 
   return !raceCompleted ? (
-    <div className="m-8">
+    <div className="m-2">
       <motion.div
         className="mx-auto w-fit flex items-center justify-center px-3 py-3 rounded-xl bg-theme-sub-alt"
         layout

@@ -13,7 +13,7 @@ export default function Footer() {
   const { currentFont } = useFont();
 
   return (
-    <footer className="w-full h-20 flex items-center justify-between gap-3">
+    <footer className="w-full py-4 flex items-center justify-between gap-3">
       <div className="gap-6">
         <Link
           className="inline-flex items-center gap-2 text-sm"
