@@ -28,7 +28,6 @@ export default function Characters({
   isUserTyping,
 }: CharactersProps) {
   const fontSize = 16;
-  console.log("user typing", isUserTyping);
 
   return (
     <div className="relative">

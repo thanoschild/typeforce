@@ -1,14 +1,7 @@
 "use client";
 
-import { Toast } from "@/components/core/Toast";
-import { AnimatePresence } from "framer-motion";
 import type { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
-import {
-  RiCheckboxCircleFill,
-  RiErrorWarningFill,
-  RiLoaderLine,
-} from "react-icons/ri";
 import { Header } from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -18,24 +11,11 @@ export function MainLayout({ children }: { children: ReactNode }) {
   const pageWidth = "1920px"; 
 
   return (
-    <main
-      className="flex flex-col min-h-screen px-4 sm:px-8 md:px-16 lg:px-20"
-    >
+    <main className="flex flex-col min-h-screen px-4 sm:px-8 md:px-16 lg:px-20">
       <Header />
       <div className="flex flex-1 flex-col">{children}</div>
       <Footer />
-      <Toaster
-        containerClassName="!inset-6"
-        position="top-right"
-        gutter={12}
-        toastOptions={{
-          error: { duration: 8000, icon: <RiErrorWarningFill /> },
-          success: { duration: 4000, icon: <RiCheckboxCircleFill /> },
-          loading: { icon: <RiLoaderLine className="animate-spin" /> },
-        }}
-      >
-        {(t) => <Toast t={t} />}
-      </Toaster>
+      <Toaster position="top-right" reverseOrder={false} />
     </main>
   );
 }

@@ -6,6 +6,7 @@ import AuthInput from "./AuthInput";
 import { validateForm } from "@/components/auth/validateForm";
 import { SignUpFormData } from "@/types/form";
 import { register } from "@/actions/register";
+import { showToast } from '@/components/core/Toast';
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -47,12 +48,12 @@ export default function RegisterForm() {
         try {
           const result = await register(formData);
           console.log(result);
-  
-        //   if (result.success) {
-        //     toast.success(result.message);
-        //   } else {
-        //     toast.error(result.message);
-        //   }
+          if(result.success) {
+            showToast('success', 'Sucess', result.message);
+            // Optionally redirect or perform other actions
+          } else {
+            showToast('error', 'Error', result.message);
+          }
         } catch (error) {
           console.error("Registration error:", error);
         //   toast.error("An unexpected error occurred.");

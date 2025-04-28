@@ -1,7 +1,6 @@
 'use client'
 
 import { verification } from "@/actions/verification";
-import FlowLoader from "@/components/Loader/FlowLoader";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
