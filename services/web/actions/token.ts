@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 export const getVerificationTokenByEmail = async (email: string) => {
   try {
-    const token = await prisma.verification_tokens.findFirst({
+    const token = await prisma.verificationToken.findFirst({
       where: {
         email,
       },
@@ -19,7 +19,7 @@ export const getVerificationTokenByEmail = async (email: string) => {
 
 export const getVerificationTokenByToken = async (token: string) => {
   try {
-    const verificationToken = await prisma.verification_tokens.findFirst({
+    const verificationToken = await prisma.verificationToken.findFirst({
       where: {
         token,
       },
@@ -39,7 +39,7 @@ export const generateVerificationToken = async (data: SignUpFormData) => {
   const existingToken = await getVerificationTokenByEmail(email);
 
   if (existingToken) {
-    await prisma.verification_tokens.delete({
+    await prisma.verificationToken.delete({
       where: {
         id: existingToken.id,
       },
@@ -47,7 +47,7 @@ export const generateVerificationToken = async (data: SignUpFormData) => {
   }
   
   const hashedPassword = await bcrypt.hash(password, 10);
-  const verificationToken = await prisma.verification_tokens.create({
+  const verificationToken = await prisma.verificationToken.create({
     data: {
       username,
       token,

@@ -4,12 +4,14 @@ import { AiOutlineGoogle, AiOutlineGithub } from "react-icons/ai";
 
 interface SocialButtonProps {
   provider: 'google' | 'github';
+  onClick?: () => void;
 }
 
-export default function SocialButton({ provider }: SocialButtonProps) {
+export default function SocialButton({ provider, onClick }: SocialButtonProps) {
   return (
     <button 
-      className="flex-1 bg-theme-sub-alt hover:bg-theme-text hover:text-theme-bg py-3 rounded-md transition-all duration-200 flex items-center justify-center"
+      onClick={onClick}
+      className="flex-1 bg-theme-sub-alt text-theme-text hover:bg-theme-text hover:text-theme-bg py-3 rounded-md transition-all duration-200 flex items-center justify-center"
       type="button"
     >
       {provider === 'google' && (

@@ -4,7 +4,7 @@ import prisma from "db/src";
 
 export const getUserByEmail = async (email: string) => {
   try {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email: email,
       },
@@ -18,7 +18,7 @@ export const getUserByEmail = async (email: string) => {
 
 export const getUserByUserName = async (username: string) => {
   try {
-    const user = await prisma.users.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         username: {
           equals: username
@@ -36,5 +36,19 @@ export const getUserByUserName = async (username: string) => {
   } catch (error) {
     console.log("Error fetching user by username:", error);
     throw new Error("Unable to fetch user");
+  }
+};
+
+export const getUserById = async (id: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };

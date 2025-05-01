@@ -6,6 +6,9 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { FontProvider } from "../context/FontContext";
 import { TypingProvider } from "@/context/TypingContext";
+import AuthProvider from "@/components/providers/AuthProvider";
+
+
 import { FontLayout } from "@/components/layout/FontLayout";
 import "@/static/fonts/fonts.css";
 
@@ -22,15 +25,17 @@ export default function RootLayout(props: { children: ReactNode }) {
       <body
         className={`bg-theme-bg font-default transition-colors ${inter.className}`}
       >
-        <TypingProvider>
-          <ThemeProvider>
-            <FontProvider>
-              <FontLayout>
-                <MainLayout>{props.children}</MainLayout>
-              </FontLayout>
-            </FontProvider>
-          </ThemeProvider>
-        </TypingProvider>
+        <AuthProvider>
+          <TypingProvider>
+            <ThemeProvider>
+              <FontProvider>
+                <FontLayout>
+                  <MainLayout>{props.children}</MainLayout>
+                </FontLayout>
+              </FontProvider>
+            </ThemeProvider>
+          </TypingProvider>
+        </AuthProvider>
       </body>
     </html>
   );

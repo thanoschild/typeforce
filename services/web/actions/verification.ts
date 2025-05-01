@@ -14,7 +14,7 @@ export const verification = async (token: string) => {
     return { success: false, message: "Token has expired" };
   }
 
-  await prisma.users.create({
+  await prisma.user.create({
     data: {
        username: currentUser.username,
        email: currentUser.email,
@@ -22,7 +22,7 @@ export const verification = async (token: string) => {
     }
  });
 
-  await prisma.verification_tokens.delete({
+  await prisma.verificationToken.delete({
     where: { id: currentUser.id },
   });
 

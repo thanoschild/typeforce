@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { LuLogIn, LuCheck } from "react-icons/lu";
+import { useEffect, useState, useTransition } from "react";
+import { LuLogIn } from "react-icons/lu";
 import AuthInput from "./AuthInput";
 import SocialButton from "./SocialButton";
 import { validateForm } from "@/components/auth/validateForm";
 import { SignInFormData } from "@/types/form";
-
+import { FaCheck } from "react-icons/fa";
+import { login } from "@/actions/login";
+import { signIn } from "next-auth/react";
+import { showToast } from "@/components/core/Toast";
+import { DEFAULT_LOGIN_REDIRECT } from "@/constants";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -14,10 +19,42 @@ export default function LoginForm() {
     password: "",
     rememberMe: false,
   });
+  const [isPending, startTransition] = useTransition();
   const [errors, setErrors] = useState<Partial<SignInFormData>>({});
   const [touchedFields, setTouchedFields] = useState<Set<keyof SignInFormData>>(
     new Set()
   );
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
+ 
+  useEffect(() => {
+    if (!error) return;
+
+    if (error.startsWith("provider_error")) {
+      showToast("error", "Authentication Error", `Account already exists, but its using a different authentication method. Try sigining in with different method.`);
+    } else if (error === "internal_error") {
+      showToast("error", "Authentication Error", "An unexpected error occurred. Please try again.");
+    }
+  }, [error]);
+
+  const handleSocialSignIn = async (provider: "google" | "github") => {
+    try {
+      const result = await signIn(provider, {
+        redirect: true,
+        callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      });
+  
+      if (result?.error) {
+        showToast(
+          "error",
+          "Authentication Error",
+          `An error occurred while signing in with ${provider}. Please try again.`
+        );
+      } 
+    } catch (error) {
+      showToast("error", "Error", "An unexpected error occurred.");
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -50,7 +87,27 @@ export default function LoginForm() {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Sign In form submitted", formData);
-      // Proceed with registration
+      startTransition(async () => {
+        try {
+          const result = await login(formData);
+
+          if (result.success) {
+            await signIn("credentials", {
+              email: formData.email,
+              password: formData.password,
+              redirect: true,
+              callbackUrl: DEFAULT_LOGIN_REDIRECT,
+            });
+
+            showToast("success", "Success", result.message);
+          } else {
+            showToast("error", "Error", result.message);
+          }
+        } catch (error) {
+          console.error("Sign in error:", error);
+          showToast("error", "Error", "An unexpected error occurred.");
+        }
+      });
     }
   };
 
@@ -61,8 +118,8 @@ export default function LoginForm() {
       </div>
 
       <div className="flex space-x-4">
-        <SocialButton provider="google" />
-        <SocialButton provider="github" />
+        <SocialButton provider="google" onClick={() => handleSocialSignIn('google')} />
+        <SocialButton provider="github" onClick={() => handleSocialSignIn('github')} />
       </div>
 
       <div className="flex items-center my-1.5">
@@ -109,10 +166,8 @@ export default function LoginForm() {
               className="sr-only"
             />
             <div
-              className={`w-5 h-5 border rounded ${
-                formData.rememberMe
-                  ? "bg-theme-sub border-theme-sub"
-                  : "bg-theme-sub-alt border-theme-sub-alt"
+              className={`w-5 h-5 rounded bg-theme-sub-alt ${
+                formData.rememberMe ? "" : "border-theme-sub-alt"
               } flex items-center justify-center cursor-pointer`}
               onClick={() =>
                 setFormData((prev) => ({
@@ -121,13 +176,11 @@ export default function LoginForm() {
                 }))
               }
             >
-              {formData.rememberMe && (
-                <LuCheck className="text-theme-bg font-extrabold text-xl" />
-              )}
+              {formData.rememberMe && <FaCheck className="text-theme-text" />}
             </div>
             <label
               htmlFor="rememberMe"
-              className="ml-2 text-gray-700 cursor-pointer"
+              className="ml-2 text-theme-text cursor-pointer"
             >
               remember me
             </label>

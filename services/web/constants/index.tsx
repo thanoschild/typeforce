@@ -6,7 +6,7 @@ import { TbKeyboard } from "react-icons/tb";
 export const BRAND_NAME = "TurboType";
 
 export const modes = ["time", "words"];
-export const timeOptions = [15, 30, 60];
+export const timeOptions = [15, 30];
 export const wordOptions = [10, 25, 50];
 
 export const NaveLinks = [
@@ -45,3 +45,4 @@ const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
 export const AUTH_LINK = FRONTEND_URL + "/auth";
 export const AUTH_VERIFICATION_LINK = FRONTEND_URL + "/auth/verification";
+export const DEFAULT_LOGIN_REDIRECT = "/account";

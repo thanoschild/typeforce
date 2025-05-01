@@ -1,9 +1,7 @@
 "use server";
 
-import bcrypt from "bcryptjs";
 import { SignUpFormData } from "@/types/form";
 import { validateForm } from "@/components/auth/validateForm";
-import prisma from "db/src";
 import { getUserByEmail, getUserByUserName } from "@/actions/user";
 import { generateVerificationToken } from "./token";
 import { sendVerificationEmail } from "@/lib/email";
@@ -21,14 +19,14 @@ export const register = async (data: SignUpFormData) => {
 
   const { username, email } = data;
 
-  const existingUserName = await getUserByUserName(username);
-  if (existingUserName) {
-    return { status: 400, success: false, message: "Username already taken" };
-  }
-
   const existingUser = await getUserByEmail(email);
   if (existingUser) {
     return { status: 400, success: false, message: "User already exists" };
+  }
+
+  const existingUserName = await getUserByUserName(username);
+  if (existingUserName) {
+    return { status: 400, success: false, message: "Username already taken" };
   }
 
   // const hashedPassword = await bcrypt.hash(password, 10);

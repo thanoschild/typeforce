@@ -49,14 +49,14 @@ export default function RegisterForm() {
           const result = await register(formData);
           console.log(result);
           if(result.success) {
-            showToast('success', 'Sucess', result.message);
+            showToast('success', 'Sucess', result.message, 6000);
             // Optionally redirect or perform other actions
           } else {
             showToast('error', 'Error', result.message);
           }
         } catch (error) {
           console.error("Registration error:", error);
-        //   toast.error("An unexpected error occurred.");
+          showToast('error', 'Error', 'Failed to register. Please try again.');
         }
       });
     }
