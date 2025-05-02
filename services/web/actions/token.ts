@@ -1,3 +1,5 @@
+"use server";
+
 import { SignUpFormData } from "@/types/form";
 import prisma from "db/src";
 import { v4 as uuidv4 } from "uuid";

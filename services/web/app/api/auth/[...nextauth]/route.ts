@@ -73,12 +73,10 @@ export const authOptions: NextAuthOptions = {
         if (account?.provider === "credentials") {
           return true;
         }
-        console.log("User:", user);
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email! },
           include: { accounts: true },
         });
-        console.log("Existing user:", existingUser);
     
         if (existingUser) {
           const registeredProvider = existingUser.accounts[0]?.provider;
@@ -95,16 +93,18 @@ export const authOptions: NextAuthOptions = {
       }
     },
     async jwt({ token, user }) {
-      if (user?.email) {
+      if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.image = user.image ?? null
       }
       return token;
     },
     async session({ session, token }) {
-      if (session.user && token) {
+      if (session.user && token.id) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
+        session.user.image = token.image ?? null
       }
       return session;
     },

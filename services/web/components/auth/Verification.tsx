@@ -75,7 +75,7 @@ export default function Verification({}: Props) {
                     <p>{message}</p>
                   </div>
                   <Link
-                    href="#"
+                    href="/"
                     className="text-sm text-theme-text hover:text-theme-sub transition-colors"
                     onClick={(e) => {
                       e.preventDefault();

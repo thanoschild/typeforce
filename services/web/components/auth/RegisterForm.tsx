@@ -47,7 +47,6 @@ export default function RegisterForm() {
       startTransition(async () => {
         try {
           const result = await register(formData);
-          console.log(result);
           if(result.success) {
             showToast('success', 'Sucess', result.message, 6000);
             // Optionally redirect or perform other actions
@@ -55,14 +54,11 @@ export default function RegisterForm() {
             showToast('error', 'Error', result.message);
           }
         } catch (error) {
-          console.error("Registration error:", error);
           showToast('error', 'Error', 'Failed to register. Please try again.');
         }
       });
     }
   };
-
-  console.log(errors);
 
   return (
     <div className="w-full mx-auto">

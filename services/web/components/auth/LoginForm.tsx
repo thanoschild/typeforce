@@ -86,7 +86,6 @@ export default function LoginForm() {
     );
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Sign In form submitted", formData);
       startTransition(async () => {
         try {
           const result = await login(formData);
@@ -98,13 +97,10 @@ export default function LoginForm() {
               redirect: true,
               callbackUrl: DEFAULT_LOGIN_REDIRECT,
             });
-
-            showToast("success", "Success", result.message);
           } else {
             showToast("error", "Error", result.message);
           }
         } catch (error) {
-          console.error("Sign in error:", error);
           showToast("error", "Error", "An unexpected error occurred.");
         }
       });

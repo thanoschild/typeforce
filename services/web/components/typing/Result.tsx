@@ -21,9 +21,12 @@ import {
   ChartOptions,
   Filler,
 } from "chart.js";
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import StatCard from "../core/StatCard";
 import { Button } from "../ui/button";
+import { ResultProps } from "@/types/test";
+import { useTypingTest } from "@/context/TypingContext";
+import { addTest } from "@/actions/test";
 
 ChartJS.register(
   LineElement,
@@ -34,16 +37,6 @@ ChartJS.register(
   Legend,
   Filler
 );
-
-export type ResultProps = {
-  wpm: number;
-  accuracy: number;
-  time: number; // total secs
-  wpmData: { time: number; wpm: number }[]; // ← array you already collect
-  onRestart: () => void;
-  mode: string;
-  modeOption: number;
-};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -56,12 +49,12 @@ export default function Result({
   time,
   wpmData,
   onRestart,
-  mode,
-  modeOption,
 }: ResultProps) {
   const { themeColors } = useTheme();
   const { currentFont } = useFont();
   const buckets = new Map<number, number[]>();
+  const { mode, modeOption } = useTypingTest();
+  const testSavedRef = useRef(false);
 
   wpmData.forEach(({ time, wpm /* already WPS */ }) => {
     const arr = buckets.get(time) ?? [];
@@ -147,8 +140,26 @@ export default function Result({
     },
   } as const;
 
-  console.log("wpmData", wpmData);
+  const testData = useMemo(() => {
+    if (!wpm || !accuracy || !time || !mode || !modeOption) return null;
+    return { wpm, accuracy, time, mode, modeOption };
+  }, [wpm, accuracy, time, mode, modeOption]);
 
+  useEffect(() => {
+    if (!testData || testSavedRef.current) return;
+  
+    const saveTestResult = async () => {
+      try {
+        await addTest(testData);
+        testSavedRef.current = true;
+      } catch (error) {
+        console.error("Failed to save test result:", error);
+      }
+    };
+  
+    saveTestResult();
+  }, [testData]);
+  
   return (
     <div className="space-y-10 flex flex-col items-center justify-center w-full">
       <motion.div

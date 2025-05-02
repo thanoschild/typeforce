@@ -13,25 +13,25 @@ export const NaveLinks = [
       {
         label: "Home",
         href: "/",
-        icon: <TbKeyboard className="text-theme-sub hover:text-theme-text" />,
+        icon: <TbKeyboard className="text-xl text-theme-sub hover:text-theme-text" />,
       },
       {
         label: "Leaderboards",
         href: "/leaderboards",
-        icon: <LuCrown className="text-theme-sub hover:text-theme-text" />,
+        icon: <LuCrown className="text-xl text-theme-sub hover:text-theme-text" />,
       },
       {
         label: "About",
         href: "/about",
         icon: (
-          <RiInformation2Line className="text-theme-sub hover:text-theme-text" />
+          <RiInformation2Line className="text-xl text-theme-sub hover:text-theme-text" />
         ),
       },
       {
         label: "Settings",
         href: "/settings",
         icon: (
-          <MdOutlineSettings className="text-theme-sub hover:text-theme-text" />
+          <MdOutlineSettings className="text-xl text-theme-sub hover:text-theme-text" />
         ),
       },
     ];
@@ -43,6 +43,10 @@ if (!process.env.NEXT_PUBLIC_FRONTEND_URL) {
 }
 const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
+export const DEFAULT_LOGIN_REDIRECT = "/account";
 export const AUTH_LINK = FRONTEND_URL + "/auth";
 export const AUTH_VERIFICATION_LINK = FRONTEND_URL + "/auth/verification";
-export const DEFAULT_LOGIN_REDIRECT = "/account";
+
+export const USER_STATS_LINK = FRONTEND_URL + '/account'
+export const USER_SETTING_LINK = FRONTEND_URL + '/account-settings'
+
