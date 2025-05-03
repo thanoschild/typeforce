@@ -1,7 +1,7 @@
 "use server";
 
 import { SignUpFormData } from "@/types/form";
-import { validateForm } from "@/components/auth/validateForm";
+import { validateForm } from "@/lib/validation";
 import { getUserByEmail, getUserByUserName } from "@/actions/user";
 import { generateVerificationToken } from "./token";
 import { sendVerificationEmail } from "@/lib/email";

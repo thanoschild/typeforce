@@ -1,19 +1,14 @@
 'use client';
 
+import { ModeType, ModeOptionType } from '@/types/mode';
 import { createContext, useContext, useReducer, useState } from 'react';
-import { modes, timeOptions, wordOptions } from "@/constants";
 
-// Derive types from the constant arrays
-type Mode = typeof modes[number];
-type TimeOption = typeof timeOptions[number];
-type WordOption = typeof wordOptions[number];
-type ModeOption = TimeOption | WordOption;
 
 interface TypingContextType {
-  mode: Mode;
-  setMode: (mode: Mode) => void;
-  modeOption: ModeOption;
-  setModeOption: (option: ModeOption) => void;
+  mode: ModeType;
+  setMode: (mode: ModeType) => void;
+  modeOption: ModeOptionType;
+  setModeOption: (option: ModeOptionType) => void;
   raceCompleted: boolean;
   setRaceCompleted: (completed: boolean) => void;
 }
@@ -21,8 +16,8 @@ interface TypingContextType {
 const TypingContext = createContext<TypingContextType | undefined>(undefined);
 
 export function TypingProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<Mode>("words");
-  const [modeOption, setModeOption] = useState<ModeOption>(10);
+  const [mode, setMode] = useState<ModeType>("words");
+  const [modeOption, setModeOption] = useState<ModeOptionType>(10);
   const [raceCompleted, setRaceCompleted] = useState<boolean>(false);
     
   return (

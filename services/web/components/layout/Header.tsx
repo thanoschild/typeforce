@@ -15,7 +15,7 @@ import { RiBarChart2Line, RiEarthLine, RiLoader4Line, RiLogoutBoxLine, RiSetting
 import { FaRegUser } from "react-icons/fa";
 
 export function Header() {
-  const [isUserTyping, setIsUserTyping] = useState(true);
+  const [isUserTyping, setIsUserTyping] = useState(false);
   const { data: session, status } = useSession();
   const [showDropdown, setShowDropdown] = useState(false);
 

@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .turbo
+
+services/websocket/node_modules
+services/web/node_modules
+services/db/node_modules

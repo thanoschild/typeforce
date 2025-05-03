@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { LuLogIn } from "react-icons/lu";
 import AuthInput from "./AuthInput";
 import SocialButton from "./SocialButton";
-import { validateForm } from "@/components/auth/validateForm";
+import { validateForm } from "@/lib/validation";
 import { SignInFormData } from "@/types/form";
 import { FaCheck } from "react-icons/fa";
 import { login } from "@/actions/login";
@@ -12,6 +12,7 @@ import { signIn } from "next-auth/react";
 import { showToast } from "@/components/core/Toast";
 import { DEFAULT_LOGIN_REDIRECT } from "@/constants";
 import { useSearchParams } from "next/navigation";
+import { RiLoader4Line } from "react-icons/ri";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -114,8 +115,14 @@ export default function LoginForm() {
       </div>
 
       <div className="flex space-x-4">
-        <SocialButton provider="google" onClick={() => handleSocialSignIn('google')} />
-        <SocialButton provider="github" onClick={() => handleSocialSignIn('github')} />
+        <SocialButton
+          provider="google"
+          onClick={() => handleSocialSignIn("google")}
+        />
+        <SocialButton
+          provider="github"
+          onClick={() => handleSocialSignIn("github")}
+        />
       </div>
 
       <div className="flex items-center my-1.5">
@@ -191,10 +198,17 @@ export default function LoginForm() {
 
         <button
           type="submit"
+          disabled={isPending}
           className="w-full bg-theme-sub-alt hover:bg-theme-text text-theme-text hover:text-theme-sub-alt flex items-center justify-center py-2.5 rounded-md transition-colors duration-200 mt-6"
         >
-          <LuLogIn className="mr-2" size={20} />
-          <span>sign in</span>
+          {isPending ? (
+            <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
+          ) : (
+            <>
+              <LuLogIn className="mr-2" size={20} />
+              <span>sign in</span>
+            </>
+          )}
         </button>
       </form>
     </div>

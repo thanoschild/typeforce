@@ -2,7 +2,7 @@
 
 import bcrypt from "bcryptjs";
 import { SignInFormData } from "@/types/form";
-import { validateForm } from "@/components/auth/validateForm";
+import { validateForm } from "@/lib/validation";
 import { getUserByEmail } from "./user";
 
 export const login = async (data: SignInFormData) => {

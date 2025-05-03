@@ -5,7 +5,7 @@ import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
 import prisma from "db/src";
 import bcrypt from "bcryptjs";
-import { validateForm } from "@/components/auth/validateForm";
+import { validateForm } from "@/lib/validation";
 import { CustomPrismaAdapter } from "@/actions/prismaAdapter";
 
 export const authOptions: NextAuthOptions = {

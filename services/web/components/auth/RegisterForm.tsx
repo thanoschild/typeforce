@@ -3,10 +3,11 @@
 import { useState, useTransition } from "react";
 import { LuUserPlus } from "react-icons/lu";
 import AuthInput from "./AuthInput";
-import { validateForm } from "@/components/auth/validateForm";
+import { validateForm } from "@/lib/validation";
 import { SignUpFormData } from "@/types/form";
 import { register } from "@/actions/register";
 import { showToast } from '@/components/core/Toast';
+import { RiLoader4Line } from "react-icons/ri";
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -131,10 +132,17 @@ export default function RegisterForm() {
 
         <button
           type="submit"
+          disabled={isPending}
           className="w-full bg-theme-sub-alt hover:bg-theme-text text-theme-text hover:text-theme-sub-alt flex items-center justify-center py-2.5 rounded-md transition-colors duration-200 mt-6"
         >
-          <LuUserPlus className="mr-2" size={20} />
-          <span>sign up</span>
+          {isPending ? (
+            <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
+          ) : (
+            <>
+              <LuUserPlus className="mr-2" size={20} />
+              <span>sign up</span>
+            </>
+          )}
         </button>
       </form>
     </div>

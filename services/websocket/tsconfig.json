@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "lib": ["ES2023"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
+}
