@@ -1,5 +1,5 @@
 import React from 'react'
-import Multiplayer from '@/components/battle/multiplayer'
+import Multiplayer from '@/components/multiplayer/Multiplayer'
 
 type Props = {}
 

@@ -14,7 +14,6 @@ export const addTest = async({ wpm, accuracy, time, mode, modeOption }: AddTestT
       }
 
       const session = await getServerSession(authOptions);
-      console.log("Session:", session);
       
       if (!session?.user?.email) {
         throw new Error("Unauthorized: No valid session found");

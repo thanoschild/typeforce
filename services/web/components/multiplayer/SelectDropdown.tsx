@@ -38,7 +38,7 @@ export function SelectDropdown<T extends string | number>({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between rounded-md bg-theme-sub-alt p-2 text-left "
+        className="flex w-full items-center justify-between rounded-md bg-theme-sub-alt px-4 p-2 text-left "
       >
         <span className={!value ? "text-theme-sub" : ""}>
           {value || placeholder}

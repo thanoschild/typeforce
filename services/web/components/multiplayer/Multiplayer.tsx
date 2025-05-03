@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Hash, LoaderPinwheel } from "lucide-react";
 import { LuSwords } from "react-icons/lu";
 import CreateRoom from './CreateRoom';
+import JoinRoom from './JoinRoom';
 
 type Props = {}
 const containerVariants = {
@@ -36,34 +37,31 @@ export default function Multiplayer({}: Props) {
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-sub items-center"
-          > <LuSwords className=''/>
-            <h1 className="text-theme-sub font-bold mb-4 sm:mb-0">Multiplayer Arena</h1>
+          > <LuSwords className='hidden md:block'/>
+            <span className="text-theme-sub font-bold mb-4 sm:mb-0">Multiplayer Arena</span>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-10 items-center justify-evenly"
+            className="flex flex-col sm:flex-row gap-10 items-center sm:items-start justify-evenly"
           >
             <CreateRoom />
-            <CreateRoom />
-
-            {/* <JoinRoom /> */}
+            <JoinRoom/>
           </motion.div>
         </div>
 
         <motion.div variants={itemVariants}>
           <div className="text-theme-sub">
             <div>
-              <div className="flex items-center space-x-3 text-2xl font-bold">
-                <Hash className="size-8" />
-                <span>Room History</span>
+              <div className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-sub items-center">
+                <Hash className="hidden md:block size-8" />
+                <span className="text-theme-sub font-bold mb-4 sm:mb-0">Room History</span>
               </div>
             </div>
             <div>
               {isPending ? (
                 <LoaderPinwheel className="animate-spin mx-auto size-10 text-yellow-400" />
               ) : (
-                
                 <div>Room History</div>
               )}
             </div>

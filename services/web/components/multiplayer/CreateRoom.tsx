@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo, useState, useTransition } from "react";
 import { SelectDropdown } from "./SelectDropdown";
 import { useTypingTest } from "@/context/TypingContext";
@@ -7,6 +9,7 @@ import { modes } from "@/constants";
 import { showToast } from "../core/Toast";
 import { RiLoader4Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -20,6 +23,7 @@ export default function CreateRoom({}: Props) {
     raceCompleted,
     setRaceCompleted,
   } = useTypingTest();
+  const router = useRouter();
   const [roomData, setRoomData] = useState<RoomDataType>({
     name: "",
     mode: "words",
@@ -32,24 +36,33 @@ export default function CreateRoom({}: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!roomData.name.trim() && roomData.name.length < 4) {
-      showToast("error", "Error", "Room name must be at least 4 characters");
+    if (roomData.name.trim().length < 6) {
+      showToast("error", "Error", "Room name must be at least 6 characters");
       return;
     }
 
     startTransition(async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        console.log("Room created:", roomData);
-        
+        const response = await fetch("api/room", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          }, 
+          body: JSON.stringify(roomData)
+        });
+        const room = await response.json();
+        router.push(`/multiplayer/room/${room.code}`);
         showToast("success", "Success", "Room created successfully!");
-      } catch (error) {}
+      } catch (error) {
+        console.error("Unable to create room", error);
+        showToast("error", "Error", "Something went wrong!");
+      }
     });
     console.log("Room data", roomData);
   };
 
   return (
-    <div className="rounded-xl bg-theme-bg w-2/5 px-20 space-y-4">
+    <div className="rounded-xl bg-theme-bg w-full max-w-[500px] space-y-4">
       <div className="flex items-center justify-center gap-3 text-theme-main">
         <h1 className="text-2xl font-bold">Create Room</h1>
       </div>
@@ -66,7 +79,7 @@ export default function CreateRoom({}: Props) {
                   name: e.target.value,
                 }))
               }
-              className="w-full rounded-md bg-theme-sub-alt p-2 text-theme-text placeholder-theme-sub outline-none ring-0 transition-all focus:ring-2 focus:ring-theme-text"
+              className="w-full rounded-md bg-theme-sub-alt px-4 p-2 text-theme-text placeholder-theme-sub outline-none ring-0 transition-all focus:ring-2 focus:ring-theme-text"
             />
           </div>
 
@@ -108,8 +121,8 @@ export default function CreateRoom({}: Props) {
               <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
             ) : (
               <>
-                 <FaPlus className="font-bold" />
-                 <span>Create Room</span>
+                <FaPlus className="font-bold" />
+                <span>Create Room</span>
               </>
             )}
           </button>

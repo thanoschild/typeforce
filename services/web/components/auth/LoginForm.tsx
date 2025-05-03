@@ -52,6 +52,8 @@ export default function LoginForm() {
           `An error occurred while signing in with ${provider}. Please try again.`
         );
       } 
+      console.log("Social sign-in result:", result);
+      showToast('success', 'Success', 'Successfully signed in with ' + provider);
     } catch (error) {
       showToast("error", "Error", "An unexpected error occurred.");
     }
@@ -98,6 +100,7 @@ export default function LoginForm() {
               redirect: true,
               callbackUrl: DEFAULT_LOGIN_REDIRECT,
             });
+            showToast("success", "Success", "Logged in successfully!");
           } else {
             showToast("error", "Error", result.message);
           }
