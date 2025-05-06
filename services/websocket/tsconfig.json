@@ -1,15 +1,22 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "lib": ["ES2015"],
     "target": "ES2023",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "lib": ["ES2023"],
     "rootDir": "./src",
     "outDir": "./dist",
     "typeRoots": ["./node_modules/@types", "./src/types"],
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
-  },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "incremental": false,
+    "isolatedModules": true,
+    "module": "NodeNext",
+    "moduleDetection": "force",
+    "moduleResolution": "NodeNext",
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+  }
 }
