@@ -79,7 +79,7 @@ export class ChatServer {
         .filter((u) => u.rooms.includes(roomCode))
         .map((u) => ({
           id: u.userId,
-          name: u.name,
+          username: u.username,
           image: u.image,
           isHost: u.userId === this.roomHosts.get(roomCode),
         }));
@@ -94,7 +94,7 @@ export class ChatServer {
     }
   }
 
-  private async handleSendMessage(userId: string, roomCode: string, message: string) {
+  private async handleSendMessage(userId: string, roomCode: string, message: string ) {
     try {
       const user = this.userManager.getUser(userId);
       if (!user) {
@@ -106,7 +106,7 @@ export class ChatServer {
         userId: userId,
         message: message,
         userData: {
-          name: user.name,
+          username: user.username,
           image: user.image,
         },
       });

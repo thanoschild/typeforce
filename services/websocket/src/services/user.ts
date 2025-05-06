@@ -11,11 +11,11 @@ export class UserManager {
   addUser(
     userId: string,
     ws: WebSocket,
-    userData?: { name: string; image: string | null }
+    userData?: { username: string; image: string | null }
   ) {
     const user = {
       userId,
-      name: userData?.name || "Anonymous",
+      username: userData?.username || "Anonymous",
       image: userData?.image || null,
       ws,
       rooms: [],
