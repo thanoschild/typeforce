@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { generate } from "random-words";
-import { tests } from "@prisma/client";
+import { Test } from "@prisma/client";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -33,7 +33,7 @@ export const calculateAccuracy = (userInput: string, text: string) => {
   return accuracy;
 };
 
-export const calculateTotalTypingTime = (tests: tests[]): string => {
+export const calculateTotalTypingTime = (tests: Test[]): string => {
   const totalSeconds = tests.reduce((sum, test) => sum + test.time, 0);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -41,7 +41,7 @@ export const calculateTotalTypingTime = (tests: tests[]): string => {
 };
 
 
-export const getRecentTests = (tests: tests[]) => {
+export const getRecentTests = (tests: Test[]) => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return tests
@@ -56,7 +56,7 @@ export const getRecentTests = (tests: tests[]) => {
     }));
 };
 
-export const getAllTimeBestScores = (tests: tests[]) => {
+export const getAllTimeBestScores = (tests: Test[]) => {
   const bestScores = {
     time: {
       "15s": 0,

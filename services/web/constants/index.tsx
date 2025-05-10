@@ -3,7 +3,7 @@ import { MdOutlineSettings } from "react-icons/md";
 import { RiInformation2Line } from "react-icons/ri";
 import { TbKeyboard } from "react-icons/tb";
 
-export const BRAND_NAME = "TurboType";
+export const BRAND_NAME = "Typeforce";
 
 export const modes = ["time", "words"];
 export const timeOptions = [15, 30];
@@ -50,3 +50,4 @@ export const AUTH_VERIFICATION_LINK = FRONTEND_URL + "/auth/verification";
 export const USER_STATS_LINK = FRONTEND_URL + '/account'
 export const USER_SETTING_LINK = FRONTEND_URL + '/account-settings'
 
+export const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? "http://localhost:8080";

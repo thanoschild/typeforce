@@ -19,6 +19,7 @@ export function CustomPrismaAdapter() {
 
       return await prisma.user.create({
         data: {
+          name: data.name ?? data.email.split("@")[0],
           username: data.email.split("@")[0],
           email: data.email,
           image: data.image,

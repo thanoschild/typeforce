@@ -41,7 +41,7 @@ export default function LoginForm() {
   const handleSocialSignIn = async (provider: "google" | "github") => {
     try {
       const result = await signIn(provider, {
-        redirect: true,
+        redirect: false,
         callbackUrl: DEFAULT_LOGIN_REDIRECT,
       });
   
@@ -52,8 +52,10 @@ export default function LoginForm() {
           `An error occurred while signing in with ${provider}. Please try again.`
         );
       } 
+      if(result?.ok) {
+        showToast('success', 'Success', 'Successfully signed in with ' + provider);
+      }
       console.log("Social sign-in result:", result);
-      showToast('success', 'Success', 'Successfully signed in with ' + provider);
     } catch (error) {
       showToast("error", "Error", "An unexpected error occurred.");
     }

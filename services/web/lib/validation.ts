@@ -1,6 +1,6 @@
 import { SignUpFormData } from "@/types/form";
 import { SignInFormData } from "@/types/form";
-import { RoomDataType } from "@/types/room";
+import { RoomFormData } from "@/types/room";
 import { modes } from "@/constants";
 
 type FormData = SignUpFormData | SignInFormData;
@@ -42,8 +42,8 @@ export function validateForm<T extends FormData>(data: T): Partial<T> {
   return errors;
 }
 
-export function validateRoomForm(data: RoomDataType) {
-    const errors: Partial<RoomDataType> = {};
+export function validateRoomForm(data: RoomFormData) {
+    const errors: Partial<RoomFormData> = {};
     if(!data.name) {
         errors.name = "Room name is required";
     } else if(data.name.length < 4) {

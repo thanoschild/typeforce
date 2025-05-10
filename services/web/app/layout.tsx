@@ -8,9 +8,9 @@ import { FontProvider } from "../context/FontContext";
 import { TypingProvider } from "@/context/TypingContext";
 import AuthProvider from "@/components/providers/AuthProvider";
 
-
 import { FontLayout } from "@/components/layout/FontLayout";
 import "@/static/fonts/fonts.css";
+import { WebSocketProvider } from "@/context/WebSocketContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,13 +27,15 @@ export default function RootLayout(props: { children: ReactNode }) {
       >
         <AuthProvider>
           <TypingProvider>
-            <ThemeProvider>
-              <FontProvider>
-                <FontLayout>
-                  <MainLayout>{props.children}</MainLayout>
-                </FontLayout>
-              </FontProvider>
-            </ThemeProvider>
+            <WebSocketProvider>
+              <ThemeProvider>
+                <FontProvider>
+                  <FontLayout>
+                    <MainLayout>{props.children}</MainLayout>
+                  </FontLayout>
+                </FontProvider>
+              </ThemeProvider>
+            </WebSocketProvider>
           </TypingProvider>
         </AuthProvider>
       </body>

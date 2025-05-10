@@ -16,6 +16,7 @@ export const verification = async (token: string) => {
 
   await prisma.user.create({
     data: {
+       name: currentUser.name ?? currentUser.username,
        username: currentUser.username,
        email: currentUser.email,
        password: currentUser.password,

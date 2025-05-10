@@ -96,6 +96,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.username = user.username || user.email.split('@')[0];
         token.image = user.image ?? null
       }
       return token;
@@ -104,6 +105,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user && token.id) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
+        session.user.username = token.username;
         session.user.image = token.image ?? null
       }
       return session;

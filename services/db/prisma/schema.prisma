@@ -9,6 +9,7 @@ datasource db {
 
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
   username      String    
   email         String    @unique
   emailVerified DateTime?
@@ -26,6 +27,7 @@ model User {
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
   userId            String  @db.ObjectId
   type              String
   provider          String
@@ -53,6 +55,7 @@ model Session {
 
 model VerificationToken {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
   username  String   
   email     String
   password  String

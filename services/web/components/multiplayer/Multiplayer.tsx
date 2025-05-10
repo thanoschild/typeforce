@@ -2,10 +2,11 @@
 
 import React, { useState, useTransition } from 'react'
 import { motion } from "framer-motion";
-import { Hash, LoaderPinwheel } from "lucide-react";
-import { LuSwords } from "react-icons/lu";
 import CreateRoom from './CreateRoom';
 import JoinRoom from './JoinRoom';
+import { LuSwords } from "react-icons/lu";
+import { RiChatHistoryLine } from "react-icons/ri";
+import { RiLoader4Line } from "react-icons/ri";
 
 type Props = {}
 const containerVariants = {
@@ -36,9 +37,9 @@ export default function Multiplayer({}: Props) {
         <div className='space-y-4'>
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-sub items-center"
+            className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-theme items-center"
           > <LuSwords className='hidden md:block'/>
-            <span className="text-theme-sub font-bold mb-4 sm:mb-0">Multiplayer Arena</span>
+            <span className="font-bold mb-4 sm:mb-0">Multiplayer Arena</span>
           </motion.div>
 
           <motion.div
@@ -53,14 +54,14 @@ export default function Multiplayer({}: Props) {
         <motion.div variants={itemVariants}>
           <div className="text-theme-sub">
             <div>
-              <div className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-sub items-center">
-                <Hash className="hidden md:block size-8" />
-                <span className="text-theme-sub font-bold mb-4 sm:mb-0">Room History</span>
+              <div className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-text items-center">
+                <RiChatHistoryLine className="hidden md:block" />
+                <span className="font-bold mb-4 sm:mb-0">Room History</span>
               </div>
             </div>
             <div>
               {isPending ? (
-                <LoaderPinwheel className="animate-spin mx-auto size-10 text-yellow-400" />
+                <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
               ) : (
                 <div>Room History</div>
               )}

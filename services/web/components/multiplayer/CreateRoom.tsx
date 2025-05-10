@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useTransition } from "react";
 import { SelectDropdown } from "./SelectDropdown";
 import { useTypingTest } from "@/context/TypingContext";
-import { RoomDataType } from "@/types/room";
+import { RoomFormData } from "@/types/room";
 import { Mode, getModeOptions } from "@/types/mode";
 import { modes } from "@/constants";
 import { showToast } from "../core/Toast";
@@ -24,7 +24,7 @@ export default function CreateRoom({}: Props) {
     setRaceCompleted,
   } = useTypingTest();
   const router = useRouter();
-  const [roomData, setRoomData] = useState<RoomDataType>({
+  const [roomData, setRoomData] = useState<RoomFormData>({
     name: "",
     mode: "words",
     modeOption: 10,
