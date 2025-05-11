@@ -4,7 +4,6 @@ import { MultiplayerHeaderProps } from "@/types/room";
 import { useSession } from "next-auth/react";
 import { showToast } from "@/components/core/Toast";
 import { motion } from "framer-motion";
-import { Copy, Hash, Hourglass, PlayCircle, Type } from "lucide-react";
 import { LuMessageCircleCode } from "react-icons/lu";
 import { FiCheck, FiCopy } from "react-icons/fi";
 import { VscDebugStart } from "react-icons/vsc";

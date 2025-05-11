@@ -1,6 +1,5 @@
 import React from "react";
 import { Member as MemberType } from "@/types/member";
-import { Users } from "lucide-react";
 import { FiUsers } from "react-icons/fi";
 
 interface MembersSectionProps {
@@ -23,7 +22,7 @@ const MemberAvatar = ({ name = "", image }: MemberAvatarProps) => {
     : "?";
 
   return (
-    <div className="w-10 h-10 rounded-full bg-neutral-700 flex items-center justify-center overflow-hidden text-white text-sm font-medium">
+    <div className="w-8 h-8 rounded-full bg-theme-text flex items-center justify-center overflow-hidden text-theme-bg text-sm font-extrabold">
       {image ? (
         <img src={image} alt={name} className="w-full h-full object-cover" />
       ) : (
@@ -36,7 +35,7 @@ const MemberAvatar = ({ name = "", image }: MemberAvatarProps) => {
 export default function Members({ members }: MembersSectionProps) {
   console.log("member: ", members);
   return (
-    <div className="bg-theme-sub-alt rounded-xl p-4 text-theme-text">
+    <div className="bg-theme-sub-alt rounded-lg p-4 text-theme-text">
       <div className="flex items-center gap-x-3 mb-4">
         <FiUsers className="size-8" />
         <h2 className="text-xl font-semibold">Typists ({members.length})</h2>

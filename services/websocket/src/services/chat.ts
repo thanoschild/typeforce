@@ -98,7 +98,8 @@ export class ChatServer {
       if (!user) {
         throw new Error(`User with ID ${userId} not found`);
       }
-
+      
+      console.log("received msg: ", message);
       this.pubSub.publish(roomCode, {
         type: "MESSAGE",
         userId: userId,
