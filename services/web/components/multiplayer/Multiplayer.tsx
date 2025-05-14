@@ -37,7 +37,7 @@ export default function Multiplayer({}: Props) {
         <div className='space-y-4'>
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-theme items-center"
+            className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-text items-center"
           > <LuSwords className='hidden md:block'/>
             <span className="font-bold mb-4 sm:mb-0">Multiplayer Arena</span>
           </motion.div>

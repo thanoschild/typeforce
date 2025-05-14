@@ -7,12 +7,13 @@ import { useWebSocket } from "@/context/WebSocketContext";
 import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
 import { RiWechatLine } from "react-icons/ri";
+import Avatar from "../core/Avatar";
 
 const Chat = ({ code }: ChatProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const { wsRef, setWsRef } = useWebSocket();
+  const { wsRef } = useWebSocket();
   const { data: session } = useSession();
 
   const scrollToBottom = useCallback(() => {
@@ -38,7 +39,7 @@ const Chat = ({ code }: ChatProps) => {
 
       setInputMessage("");
     },
-    [inputMessage, setWsRef, session, code]
+    [inputMessage, wsRef, session, code]
   );
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const Chat = ({ code }: ChatProps) => {
 
     wsRef.addEventListener("message", handleWebSocketMessage);
     return () => wsRef.removeEventListener("message", handleWebSocketMessage);
-  }, [setWsRef, scrollToBottom]);
+  }, [wsRef, scrollToBottom]);
 
   console.log("message: ", messages)
 
@@ -116,20 +117,10 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
 
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-full bg-theme-text flex items-center justify-center text-sm font-semibold text-theme-bg overflow-hidden">
-        {message.sender.image ? (
-          <img
-            src={message.sender.image}
-            alt={message.sender.username}
-            className="w-full h-full object-cover rounded-full"
-          />
-        ) : (
-          initials
-        )}
-      </div>
+      <Avatar name={message.sender.username} image={message.sender.image || ""}/>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-theme-text">
+          <span className="font-medium text-theme-text text-sm">
             {message.sender.username}
           </span>
         </div>

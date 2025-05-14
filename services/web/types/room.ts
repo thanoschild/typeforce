@@ -6,7 +6,7 @@ export interface RoomFormData {
   modeOption: ModeOptionType;
 }
 
-type Room = {
+export type Room = {
   mode: string;
   modeOption: number;
   name: string;

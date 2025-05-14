@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { LuMessageCircleCode } from "react-icons/lu";
 import { FiCheck, FiCopy } from "react-icons/fi";
 import { VscDebugStart } from "react-icons/vsc";
+import { generateRandomWords } from "@/lib/utils";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -18,11 +19,37 @@ export default function RoomHeader({
   isHost,
   isRaceStarted,
 }: MultiplayerHeaderProps) {
-  const { setWsRef } = useWebSocket();
+  const { wsRef } = useWebSocket();
   const { data: session } = useSession();
   const [isCopied, setIsCopied] = useState(false);
 
-  const handleStartTest = () => {};
+  const handleStartTest = useCallback(() => {
+    if (!roomData || !session?.user?.id) return;
+
+    if (wsRef?.readyState === WebSocket.OPEN) {
+      try {
+        const text = generateRandomWords(
+          roomData.mode === "words"
+            ? roomData.modeOption
+            : roomData.modeOption * 2
+        );
+
+        wsRef.send(
+          JSON.stringify({
+            type: "START_RACE",
+            userId: session.user.id,
+            roomCode: roomData.code,
+            text: text,
+          })
+        );
+      } catch (error) {
+        console.error("Error starting race:", error);
+        showToast("error", "Error", "Failed to start race. Please try again.");
+      }
+    } else {
+      showToast("error", "Error", "Connection lost. Reconnecting...");
+    }
+  }, [wsRef, session?.user?.id, roomData]);
 
   const handleCopyInvite = useCallback(() => {
     if (!roomData?.code) return;

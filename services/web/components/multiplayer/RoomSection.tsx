@@ -10,6 +10,7 @@ import { RiLoader4Line } from "react-icons/ri";
 import RoomHeader from "./RoomHeader";
 import Chat from "./RoomChat";
 import Members from "./RoomMembers";
+import Race from "./Race";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,6 +36,7 @@ export default function RoomSection({ code }: RoomSectionProps) {
   const [roomData, setRoomData] = useState<RoomType | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [isRaceStarted, setIsRaceStarted] = useState(false);
+  const [raceText, setRaceText] = useState<string>("");
 
   const socket = useSocket();
 
@@ -73,9 +75,29 @@ export default function RoomSection({ code }: RoomSectionProps) {
         case "ROOM_MEMBERS":
           setMembers(data.members);
           break;
+        case "RACE_START":
+          setIsRaceStarted(true);
+          setRaceText(data.text);
+          break;
+        case "PROGRESS_UPDATE":
+          setMembers((prevMembers) => {
+            return prevMembers.map((member) =>
+              member.id === data.userId
+                ? {
+                    ...member,
+                    progress: {
+                      wpm: data.progress.wpm,
+                      accuracy: data.progress.accuracy,
+                      progress: data.progress.progress,
+                    },
+                  }
+                : member
+            );
+          });
+          break;
       }
     };
-  }, [code, socket, status]);
+  }, [code, socket, status, isRaceStarted]);
 
   useEffect(() => {
     joinRoom();
@@ -113,14 +135,13 @@ export default function RoomSection({ code }: RoomSectionProps) {
           className="grid grid-cols-1 lg:grid-cols-3 gap-6"
         >
           {isRaceStarted ? (
-            // <Race
-            //   members={members}
-            //   isRaceStarted={isRaceStarted}
-            //   setIsRaceStarted={setIsRaceStarted}
-            //   roomData={roomData}
-            //   raceText={raceText}
-            // />
-            <></>
+            <Race
+              members={members}
+              isRaceStarted={isRaceStarted}
+              setIsRaceStarted={setIsRaceStarted}
+              roomData={roomData}
+              raceText={raceText}
+            />
           ) : (
             <>
               <Chat code={code} />

@@ -87,12 +87,14 @@ export default function CreateRoom({}: Props) {
             <SelectDropdown<Mode>
               value={mode as Mode}
               onChange={(value) => {
+                const defaultOption = getModeOptions(value)[0];
                 setRoomData((prev) => ({
                   ...prev,
                   mode: value,
                   modeOption: getModeOptions(value)[0],
                 }));
                 setMode(value);
+                setModeOption(defaultOption);
               }}
               options={modes}
               placeholder="Select Mode"

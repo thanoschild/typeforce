@@ -3,7 +3,6 @@ import { RedisManager } from "./redis";
 import { UserManager } from "./user";
 import { Server } from "node:http";
 
-
 export class ChatServer {
   private pubSub: RedisManager;
   private userManager: UserManager;
@@ -52,6 +51,12 @@ export class ChatServer {
         case "SEND_MESSAGE":
           await this.handleSendMessage(userId, roomCode, parsedData.message!);
           break;
+        case "START_RACE":
+          await this.handleStartRace(roomCode, parsedData.text);
+          break;
+        case "UPDATE_PROGRESS":
+          await this.handleProgressUpdate(roomCode, userId, parsedData.progress!)
+          break;
       }
     } catch (error) {
       console.error("Error processing message:", error);
@@ -99,7 +104,6 @@ export class ChatServer {
         throw new Error(`User with ID ${userId} not found`);
       }
       
-      console.log("received msg: ", message);
       this.pubSub.publish(roomCode, {
         type: "MESSAGE",
         userId: userId,
@@ -129,6 +133,52 @@ export class ChatServer {
       });
 
       this.userManager.removeUser(userId);
+    }
+  }
+
+  private async handleStartRace(roomCode: string, text: string) {
+     try {
+       const usersInRoom = this.userManager.getUsersInRoom(roomCode);
+       if(!usersInRoom.length) {
+         console.log("No user in room: ", roomCode);
+         return;
+       }
+
+       this.pubSub.publish(roomCode, {
+        type: "RACE_START",
+        timestamp: Date.now(),
+        text
+       })
+     } catch(error) {
+       console.error("Error in handleStartRace:", error);
+     }
+  }
+
+  private async handleProgressUpdate(roomCode: string, userId: string, progress: {wpm: number; accuracy: number; progress: number }) {
+    try {
+      console.log("progerss0: ", progress)
+      const usersInRoom = this.userManager.getUsersInRoom(roomCode);
+      if(!usersInRoom.length) {
+        console.log("No user in room: ", roomCode);
+        return;
+      }
+
+      const user = this.userManager.getUser(userId);
+      if (!user) {
+        console.error("User not found for progress update:", userId);
+        return;
+      }
+
+      console.log("progerss1: ", progress)
+
+      this.pubSub.publish(roomCode, {
+        type: "PROGRESS_UPDATE",
+        userId,
+        progress,
+        timestamp: Date.now(),
+      });
+    } catch(error) {
+      console.error("Error in handleProgressUpdate:", error);
     }
   }
 }

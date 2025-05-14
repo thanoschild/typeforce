@@ -1,6 +1,7 @@
 import React from "react";
 import { Member as MemberType } from "@/types/member";
 import { FiUsers } from "react-icons/fi";
+import Avatar from "../core/Avatar";
 
 interface MembersSectionProps {
   members: MemberType[];
@@ -10,27 +11,6 @@ interface MemberAvatarProps {
   name: string;
   image: string;
 }
-
-const MemberAvatar = ({ name = "", image }: MemberAvatarProps) => {
-  const initials = name
-    ? name.split(" ").length === 1
-      ? name[0].toUpperCase()
-      : name
-          .split(" ")
-          .map((part) => part[0].toUpperCase())
-          .join("")
-    : "?";
-
-  return (
-    <div className="w-8 h-8 rounded-full bg-theme-text flex items-center justify-center overflow-hidden text-theme-bg text-sm font-extrabold">
-      {image ? (
-        <img src={image} alt={name} className="w-full h-full object-cover" />
-      ) : (
-        initials
-      )}
-    </div>
-  );
-};
 
 export default function Members({ members }: MembersSectionProps) {
   console.log("member: ", members);
@@ -47,7 +27,7 @@ export default function Members({ members }: MembersSectionProps) {
             className="flex items-center justify-between p-2 rounded-lg transition-colors"
           >
             <div className="flex items-center gap-3">
-              <MemberAvatar name={member.username} image={member.image || ""} />
+              <Avatar name={member.username} image={member.image || ""} />
               <div className="text-sm text-theme-text font-medium">
                 {member.username}
                 {member.isHost && (

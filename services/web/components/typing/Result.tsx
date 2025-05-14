@@ -49,12 +49,17 @@ export default function Result({
   time,
   wpmData,
   onRestart,
+  mode: modeProp,
+  modeOption: modeOptionProp
 }: ResultProps) {
   const { themeColors } = useTheme();
   const { currentFont } = useFont();
   const buckets = new Map<number, number[]>();
-  const { mode, modeOption } = useTypingTest();
   const testSavedRef = useRef(false);
+  
+  const { mode: modeContext, modeOption: modeOptionContext } = useTypingTest();
+  const mode = modeProp ?? modeContext;
+  const modeOption = modeOptionProp ?? modeOptionContext;
 
   wpmData.forEach(({ time, wpm /* already WPS */ }) => {
     const arr = buckets.get(time) ?? [];
