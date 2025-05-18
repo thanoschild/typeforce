@@ -2,8 +2,9 @@ import { LuCrown } from "react-icons/lu";
 import { MdOutlineSettings } from "react-icons/md";
 import { RiInformation2Line } from "react-icons/ri";
 import { TbKeyboard } from "react-icons/tb";
+import { LuSwords } from "react-icons/lu";
 
-export const BRAND_NAME = "Typeforce";
+export const BRAND_NAME = "Typeforces";
 
 export const modes = ["time", "words"];
 export const timeOptions = [15, 30];
@@ -14,6 +15,13 @@ export const NaveLinks = [
         label: "Home",
         href: "/",
         icon: <TbKeyboard className="text-xl text-theme-sub hover:text-theme-text" />,
+      },
+      {
+        label: "Multiplayer",
+        href: "/multiplayer",
+        icon: (
+          <LuSwords className="text-xl text-theme-sub hover:text-theme-text" />
+        ),
       },
       {
         label: "Leaderboards",

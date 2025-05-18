@@ -1,7 +1,9 @@
 import Redis from "ioredis";
 
 const URL = process.env.REDIS_URL || "redis://:admin@localhost:6379";
-
+console.log("Redis URL: ", URL)
+// redis://localhost:6379
+// redis://:admin@localhost:6379
 export class RedisManager {
   private publisher: Redis;
   public subscriber: Redis;

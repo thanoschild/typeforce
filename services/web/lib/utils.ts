@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { generate } from "random-words";
 import { Test } from "@prisma/client";
+import { Word } from "@/types/words";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -11,6 +12,14 @@ export const generateRandomWords = (length: number) => {
   const words = generate({ exactly: length, join: " " });
   return words;
 };
+
+export function parseWords(words: string[]): Word[] {
+  return words.map((word) => ({
+    original: word,
+    isCorrect: false,
+    letters: word.split('').map((letter) => ({ original: letter })),
+  }));
+}
 
 export const calculateWPM = (totalCharacters: number, timePassed: number) => {
   const minutes = timePassed / 60;

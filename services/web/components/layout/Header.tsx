@@ -10,9 +10,9 @@ import Link from "next/link";
 import { Avatar } from "../profile/Avatar";
 import { Button } from "@/components/ui/button";
 import { AUTH_LINK, NaveLinks } from "@/constants";
-import { signOut, useSession } from "next-auth/react";
-import { RiBarChart2Line, RiEarthLine, RiLoader4Line, RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import { RiLoader4Line } from "react-icons/ri";
+
 
 export function Header() {
   const [isUserTyping, setIsUserTyping] = useState(false);

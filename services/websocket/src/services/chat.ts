@@ -156,7 +156,6 @@ export class ChatServer {
 
   private async handleProgressUpdate(roomCode: string, userId: string, progress: {wpm: number; accuracy: number; progress: number }) {
     try {
-      console.log("progerss0: ", progress)
       const usersInRoom = this.userManager.getUsersInRoom(roomCode);
       if(!usersInRoom.length) {
         console.log("No user in room: ", roomCode);
@@ -168,8 +167,6 @@ export class ChatServer {
         console.error("User not found for progress update:", userId);
         return;
       }
-
-      console.log("progerss1: ", progress)
 
       this.pubSub.publish(roomCode, {
         type: "PROGRESS_UPDATE",
