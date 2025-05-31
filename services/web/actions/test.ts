@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import prisma from "db/src";
 import { getUserByEmail } from "@/actions/user";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { updateLeaderboards } from "./leaderboard";
 
 
 export const addTest = async({ wpm, accuracy, time, mode, modeOption }: AddTestTypes) => {
@@ -14,6 +15,7 @@ export const addTest = async({ wpm, accuracy, time, mode, modeOption }: AddTestT
       }
 
       const session = await getServerSession(authOptions);
+      console.log("Session:", session);
       
       if (!session?.user?.email) {
         throw new Error("Unauthorized: No valid session found");
@@ -24,7 +26,7 @@ export const addTest = async({ wpm, accuracy, time, mode, modeOption }: AddTestT
         throw new Error("User not found");
       }
 
-      return await prisma.test.create({
+      const test = await prisma.test.create({
         data: {
           wpm: Math.round(wpm),
           accuracy: Number(accuracy.toFixed(2)),
@@ -34,6 +36,10 @@ export const addTest = async({ wpm, accuracy, time, mode, modeOption }: AddTestT
           userId: user.id,
         },
       });
+
+      void updateLeaderboards(test, user.id, user.username);
+
+      return test;
     } catch (error) {
       console.error("Error in adding test to db:", error);
       throw error;

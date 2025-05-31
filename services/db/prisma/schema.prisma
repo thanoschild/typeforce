@@ -15,6 +15,11 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
+  bestTest      Json?
+  AvgWpm        Float?
+  AvgAccuracy   Float?
+  TestCount     Int?
+  TotalTime     Int?
   accounts      Account[]
   tests         Test[]
   rooms         Room[]

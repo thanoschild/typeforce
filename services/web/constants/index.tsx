@@ -4,7 +4,7 @@ import { RiInformation2Line } from "react-icons/ri";
 import { TbKeyboard } from "react-icons/tb";
 import { LuSwords } from "react-icons/lu";
 
-export const BRAND_NAME = "Typeforces";
+export const APP_NAME = "typeforce";
 
 export const modes = ["time", "words"];
 export const timeOptions = [15, 30];

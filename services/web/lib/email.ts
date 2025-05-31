@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { AUTH_VERIFICATION_LINK } from "@/constants";
-import { BRAND_NAME } from "@/constants";
+import { APP_NAME } from "@/constants";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -44,7 +44,7 @@ function verificationEmailBody(username: string, token: string) {
 
               <tr>
                 <td style="padding-bottom: 20px; color: #bbbbbb; font-size: 16px; text-align: center;">
-                  Welcome to ${BRAND_NAME}!<br>
+                  Welcome to ${APP_NAME}!<br>
                   To complete your registration, please verify your email address by clicking the button below.
                 </td>
               </tr>
