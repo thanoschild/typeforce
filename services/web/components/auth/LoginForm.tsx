@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { LuLogIn } from "react-icons/lu";
-import AuthInput from "./AuthInput";
+import Input from "../core/Input";
 import SocialButton from "./SocialButton";
 import { validateForm } from "@/lib/validation";
 import { SignInFormData } from "@/types/form";
@@ -138,7 +138,7 @@ export default function LoginForm() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="email"
             type="email"
             value={formData.email}
@@ -151,7 +151,7 @@ export default function LoginForm() {
         </div>
 
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="password"
             type="password"
             value={formData.password}

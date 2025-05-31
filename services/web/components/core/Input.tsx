@@ -1,12 +1,15 @@
 'use client';
 
 import { cn } from '@/lib/utils'
+import { ReactNode } from 'react';
 
-interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   highlight?: boolean;
+  icon?: ReactNode;
+  iconClassName?: string;
 }
 
-export default function AuthInput({ className, highlight = false, ...props }: AuthInputProps) {
+export default function Input({ className, highlight = false, ...props }: InputProps) {
   return (
     <input
       className={cn(

@@ -1,44 +1,46 @@
-import React from 'react';
-import clsx from 'clsx';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-type ButtonProps = {
-  variant?: 'solid' | 'ghost';
-  size?: 'sm' | 'md';
-  className?: string;
+interface ButtonProps {
   onClick?: () => void;
-  children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-};
+  icon?: ReactNode;
+  children: ReactNode;
+  isSelected?: boolean;
+  variant?: "default" | "primary" | "secondary";
+  className?: string;
+}
 
-const Button: React.FC<ButtonProps> = ({
-  variant = 'solid',
-  size = 'md',
-  className = '',
+export default function Button({
   onClick,
+  icon,
   children,
-  type = 'button',
-}) => {
-  const baseStyles = 'w-full rounded transition flex items-center justify-center gap-1';
-
-  const sizeStyles = {
-    sm: 'text-xs px-2 py-1',
-    md: 'text-sm px-3 py-2',
-  };
-
-  const variantStyles = {
-    solid: 'bg-neutral-700 text-neutral-200 hover:bg-neutral-800',
-    ghost: 'text-neutral-400 hover:bg-neutral-800',
+  isSelected,
+  variant = "default",
+  className,
+}: ButtonProps) {
+  const baseStyles = "w-full text-left font-bold py-1.5 px-3 rounded-md flex items-center gap-2 hover:bg-theme-text hover:text-theme-bg transition-colors";
+  
+  const variants = {
+    default: "hover:bg-theme-text hover:text-theme-bg",
+    primary: isSelected 
+      ? "bg-theme-main text-theme-bg" 
+      : "text-theme-text hover:bg-theme-text hover:text-theme-bg",
+    secondary: isSelected
+      ? "bg-olive-500 text-white"
+      : "text-theme-text hover:bg-stone-200",
   };
 
   return (
     <button
-      type={type}
+      className={cn(
+        baseStyles,
+        variants[variant],
+        className
+      )}
       onClick={onClick}
-      className={clsx(baseStyles, sizeStyles[size], variantStyles[variant], className)}
     >
+      {icon && <span className="text-lg">{icon}</span>}
       {children}
     </button>
   );
-};
-
-export default Button;
+}

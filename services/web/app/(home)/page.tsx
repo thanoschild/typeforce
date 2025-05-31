@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="">
       <Modes />
-      <div className="flex w-full justify-center mt-20 px-12 py-8">
+      <div className="flex w-full justify-center mt-20">
         <Interface />
       </div>
     </div>

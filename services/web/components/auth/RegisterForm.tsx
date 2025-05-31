@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { LuUserPlus } from "react-icons/lu";
-import AuthInput from "./AuthInput";
+import Input from "../core/Input";
 import { validateForm } from "@/lib/validation";
 import { SignUpFormData } from "@/types/form";
 import { register } from "@/actions/register";
@@ -69,7 +69,7 @@ export default function RegisterForm() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="username"
             value={formData.username}
             onChange={handleChange}
@@ -81,7 +81,7 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="email"
             type="email"
             value={formData.email}
@@ -93,7 +93,7 @@ export default function RegisterForm() {
           )}
         </div>
 
-        {/* <AuthInput
+        {/* <Input
           name="verifyEmail"
           type="email"
           value={formData.verifyEmail}
@@ -103,7 +103,7 @@ export default function RegisterForm() {
         /> */}
 
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="password"
             type="password"
             value={formData.password}
@@ -116,7 +116,7 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-1">
-          <AuthInput
+          <Input
             name="verifyPassword"
             type="password"
             value={formData.verifyPassword}

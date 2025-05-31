@@ -5,7 +5,7 @@ type Props = {}
 
 export default function MultiplayerPage({}: Props) {
   return (
-    <div className='w-full lg:px-12 lg:py-4'>
+    <div className='w-full'>
         <Multiplayer/>
     </div>
   )

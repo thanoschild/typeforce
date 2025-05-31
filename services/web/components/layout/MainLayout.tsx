@@ -13,7 +13,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
   return (
     <main className="flex flex-col min-h-screen px-4 sm:px-8 md:px-16 lg:px-20">
       <Header />
-      <div className="flex flex-1 flex-col">{children}</div>
+      <div className="flex flex-1 flex-col lg:px-24 lg:py-8">{children}</div>
       <Footer />
       <Toaster position="top-right" reverseOrder={false} />
     </main>

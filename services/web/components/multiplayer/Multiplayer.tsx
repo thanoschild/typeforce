@@ -33,7 +33,7 @@ export default function Multiplayer({}: Props) {
       initial="hidden"
       animate="visible"
     >
-      <div className="w-full mx-auto space-y-8 pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto space-y-8 pb-16">
         <div className='space-y-4'>
           <motion.div
             variants={itemVariants}
@@ -44,7 +44,7 @@ export default function Multiplayer({}: Props) {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-10 items-center sm:items-start justify-evenly"
+            className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4"
           >
             <CreateRoom />
             <JoinRoom/>

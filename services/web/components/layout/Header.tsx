@@ -8,7 +8,6 @@ import { Text } from "@/components/core/Text";
 import { Tooltip } from "../core/Tooltip";
 import Link from "next/link";
 import { Avatar } from "../profile/Avatar";
-import { Button } from "@/components/ui/button";
 import { AUTH_LINK, NaveLinks } from "@/constants";
 import { useSession } from "next-auth/react";
 import { RiLoader4Line } from "react-icons/ri";
