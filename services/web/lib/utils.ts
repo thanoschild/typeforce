@@ -27,7 +27,7 @@ export const calculateWPM = (totalCharacters: number, timePassed: number) => {
 
   if (minutes === 0 || totalCharacters === 0) return 0;
 
-  const wpm = Math.round(wordsTyped / minutes);
+  const wpm = Number((wordsTyped / minutes).toFixed(2));
   return wpm;
 };
 
@@ -39,7 +39,7 @@ export const calculateAccuracy = (userInput: string, text: string) => {
     .filter((char, index) => char === text[index]).length;
   const accuracy = (correctChars / userInput.length) * 100;
 
-  return accuracy;
+  return Number(accuracy.toFixed(2));
 };
 
 export const calculateTotalTypingTime = (tests: Test[]): string => {

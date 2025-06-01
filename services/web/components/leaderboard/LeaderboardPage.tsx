@@ -48,21 +48,23 @@ export default function LeaderboardPage() {
   }, [isAllTime, selectedMode]);
 
   useEffect(() => {
+    // Initial fetch when dependencies change
     fetchLeaderboard();
+  }, [isAllTime, selectedMode, fetchLeaderboard]);
 
+  useEffect(() => {
     const countdownInterval = setInterval(() => {
       setCountdown((prev) => (prev > 0 ? prev - 1 : 30));
     }, 1000);
 
-    const fetchInterval = setInterval(() => {
-      fetchLeaderboard();
-    }, 300000);
+    return () => clearInterval(countdownInterval);
+  }, []);
 
-    return () => {
-      clearInterval(countdownInterval);
-      clearInterval(fetchInterval);
-    };
-  }, [isAllTime, selectedMode, fetchLeaderboard]);
+  // Separate useEffect for periodic fetch
+  useEffect(() => {
+    const fetchInterval = setInterval(fetchLeaderboard, 30000); // 5 minutes
+    return () => clearInterval(fetchInterval);
+  }, [fetchLeaderboard]);
 
   const filteredData = leaderboardData.filter((entry) =>
     entry?.username?.toLowerCase().includes(searchTerm?.toLowerCase())

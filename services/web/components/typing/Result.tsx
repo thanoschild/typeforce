@@ -27,6 +27,7 @@ import { Button } from "../ui/button";
 import { ResultProps } from "@/types/test";
 import { useTypingTest } from "@/context/TypingContext";
 import { addTest } from "@/actions/test";
+import { showToast } from "../core/Toast";
 
 ChartJS.register(
   LineElement,
@@ -155,8 +156,11 @@ export default function Result({
   
     const saveTestResult = async () => {
       try {
-        await addTest(testData);
+        const testDataResponse = await addTest(testData);
         testSavedRef.current = true;
+        if(!testDataResponse.success) {
+          showToast('error', "Error", testDataResponse.message);
+        }
       } catch (error) {
         console.error("Failed to save test result:", error);
       }
@@ -174,7 +178,7 @@ export default function Result({
         <StatCard
           icon={<SiSpeedtest className="text-theme-sub text-7xl" />}
           title="WPM"
-          value={wpm}
+          value={Math.round(wpm)}
         />
         <StatCard
           icon={<TbTargetArrow className="text-theme-sub text-7xl" />}

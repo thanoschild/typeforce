@@ -8,11 +8,15 @@ async function getCombinedLeaderboard(
   timeFrame: string,
   limit: number
 ): Promise<LeaderboardDataType[]> {
+  const today = new Date().toISOString().split("T")[0];
   const leaderboardKey = `${APP_NAME}:leaderboard:${timeFrame}`;
   const userScores = new Map<string, { score: number; data: LeaderboardDataType }>();
 
   for (const mode of modes) {
-    const modeKey = `${leaderboardKey}:${mode}`;
+    const modeKey =
+    timeFrame === "daily"
+      ? `${leaderboardKey}:${mode}:${today}`
+      : `${leaderboardKey}:${mode}`;
     const userIds = await redis.zrevrange(modeKey, 0, -1);
     if (!userIds.length) continue;
 
@@ -24,7 +28,7 @@ async function getCombinedLeaderboard(
       if (!data) continue;
 
       const parsed = JSON.parse(data);
-      const score = Math.round(parsed.wpm * (parsed.accuracy / 100));
+      const score = Number((parsed.wpm * (parsed.accuracy / 100)).toFixed(2));
       const existing = userScores.get(parsed.userId);
 
       if (!existing || score > existing.score) {
@@ -58,6 +62,7 @@ export async function GET(request: NextRequest) {
   const mode = searchParams.get("mode") || "all";
   const timeFrame = searchParams.get("timeFrame") || "alltime";
   const limit = parseInt(searchParams.get("limit") || "10");
+  const today = new Date().toISOString().split("T")[0];
 
   try {
     if(mode === "all") {
@@ -65,7 +70,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ leaderboard });
     }
 
-    const leaderboardKey = `${APP_NAME}:leaderboard:${timeFrame}:${mode}`;
+    const leaderboardKey =
+    timeFrame === "daily"
+      ? `${APP_NAME}:leaderboard:daily:${mode}:${today}`
+      : `${APP_NAME}:leaderboard:${timeFrame}:${mode}`;
     const userIds = await redis.zrevrange(leaderboardKey, 0, limit - 1);
 
     if (!userIds.length) {

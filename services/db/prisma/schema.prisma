@@ -72,7 +72,7 @@ model VerificationToken {
 
 model Test {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  wpm        Int
+  wpm        Float
   accuracy   Float
   time       Int
   mode       String
