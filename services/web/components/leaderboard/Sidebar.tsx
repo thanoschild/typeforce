@@ -2,11 +2,11 @@ import React from "react";
 import  Button  from "@/components/core/Button";
 import { motion } from "framer-motion";
 import { modes } from "@/constants";
-import { IoEarthOutline } from "react-icons/io5";
-import { FaRegHourglass } from "react-icons/fa6";
 import { LuLayoutGrid } from "react-icons/lu";
 import { TbClockHour4 } from "react-icons/tb";
 import { MdOutlineFontDownload } from "react-icons/md";
+import { LiaGlobeAmericasSolid } from "react-icons/lia";
+import { IoMdCalendar } from "react-icons/io";
 
 interface SidebarProps {
   isAllTime: boolean;
@@ -25,7 +25,7 @@ export default function Sidebar({
     <div className="bg-theme-sub-alt p-4 rounded-lg">
       <div className="space-y-4">
         <Button
-          icon={<IoEarthOutline />}
+          icon={<LiaGlobeAmericasSolid className=""/>}
           isSelected={isAllTime}
           onClick={() => setIsAllTime(true)}
           variant="primary"
@@ -34,7 +34,7 @@ export default function Sidebar({
         </Button>
 
          <Button
-          icon={<FaRegHourglass />}
+          icon={<IoMdCalendar />}
           isSelected={!isAllTime}
           onClick={() => setIsAllTime(false)}
           variant="primary"

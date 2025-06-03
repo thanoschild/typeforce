@@ -1,9 +1,10 @@
+import Account from '@/components/account/Account'
 import React from 'react'
 
-type Props = {}
-
-export default function AccountPage({}: Props) {
+export default function AccountPage() {
   return (
-    <div>AccountPage</div>
+    <div>
+      <Account/>
+    </div>
   )
 }

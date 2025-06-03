@@ -78,7 +78,7 @@ export default function LeaderboardTable({
                   <td className="py-4 px-4 text-right">
                     {user.accuracy.toFixed(2)}%
                   </td>
-                  <td className="py-4 px-4 text-right">{user.time}</td>
+                  <td className="py-4 px-4 text-right">{user.time}s</td>
                   <td className="py-4 px-4 text-right whitespace-nowrap last:rounded-r-lg">
                     {user.mode}
                   </td>

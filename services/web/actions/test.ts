@@ -8,6 +8,56 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { updateLeaderboards } from "./leaderboard";
 import { User } from "@prisma/client";
 
+export const getTest = async (userId: string) => {
+   const tests = await prisma.test.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+   })
+}
+
+export const addTest = async ({
+  wpm,
+  accuracy,
+  time,
+  mode,
+  modeOption,
+}: AddTestTypes) => {
+  try {
+    if (!wpm || !accuracy || !time || !mode || !modeOption) {
+      throw new Error("Missing required fields");
+    }
+
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      throw new Error("Unauthorized: No valid session found");
+    }
+
+    const user = await getUserByEmail(session.user.email);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (validateTest(wpm, accuracy, user)) {
+      const test = await createTest({ wpm, accuracy, time, mode, modeOption }, user);
+      void updateUserStats({ wpm, accuracy, time, mode, modeOption }, user);
+      return {
+        success: true,
+        message: "Test added successfully",
+        test,
+      };
+    } else {
+      return {
+        success: false,
+        message: "Invalid test",
+      };
+    }
+  } catch (error) {
+    console.error("Error in adding test to db:", error);
+    throw error;
+  }
+};
+
 const createTest = async ({ wpm, accuracy, time, mode, modeOption }: AddTestTypes, user: User) => {
   if (!wpm || !accuracy || !time || !mode || !modeOption) {
     throw new Error("Missing required fields");
@@ -93,50 +143,4 @@ const updateUserStats = async ({ wpm, accuracy, time, mode, modeOption }: AddTes
       bestTest: currentBestTest,
     },
   });
-};
-
-export const addTest = async ({
-  wpm,
-  accuracy,
-  time,
-  mode,
-  modeOption,
-}: AddTestTypes) => {
-  try {
-    if (!wpm || !accuracy || !time || !mode || !modeOption) {
-      throw new Error("Missing required fields");
-    }
-    console.log("first-wpm: ", wpm);
-  console.log("first-accuracy: ", accuracy);
-
-    const session = await getServerSession(authOptions);
-    console.log("Session:", session);
-
-    if (!session?.user?.email) {
-      throw new Error("Unauthorized: No valid session found");
-    }
-
-    const user = await getUserByEmail(session.user.email);
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    if (validateTest(wpm, accuracy, user)) {
-      const test = await createTest({ wpm, accuracy, time, mode, modeOption }, user);
-      void updateUserStats({ wpm, accuracy, time, mode, modeOption }, user);
-      return {
-        success: true,
-        message: "Test added successfully",
-        test,
-      };
-    } else {
-      return {
-        success: false,
-        message: "Invalid test",
-      };
-    }
-  } catch (error) {
-    console.error("Error in adding test to db:", error);
-    throw error;
-  }
 };
