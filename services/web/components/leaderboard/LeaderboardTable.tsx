@@ -1,5 +1,4 @@
 import { LeaderboardDataType } from "@/types/leaderboard";
-import { Crown } from "lucide-react";
 import React from "react";
 import { LuCrown } from "react-icons/lu";
 import Input from "../core/Input";

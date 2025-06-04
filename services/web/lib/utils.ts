@@ -4,6 +4,11 @@ import { generate } from "random-words";
 import { Test } from "@prisma/client";
 import { Word } from "@/types/words";
 
+interface TestCountData {
+  date: string;
+  testCount: number;
+}
+
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
@@ -17,7 +22,7 @@ export function parseWords(words: string[]): Word[] {
   return words.map((word) => ({
     original: word,
     isCorrect: false,
-    letters: word.split('').map((letter) => ({ original: letter })),
+    letters: word.split("").map((letter) => ({ original: letter })),
   }));
 }
 
@@ -48,7 +53,6 @@ export const calculateTotalTypingTime = (tests: Test[]): string => {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   return `${hours}h ${minutes}m`;
 };
-
 
 export const getRecentTests = (tests: Test[]) => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -97,6 +101,18 @@ export const getAllTimeBestScores = (tests: Test[]) => {
   });
 
   return bestScores;
+};
+
+export const getTestCountByDate = (tests: Test[]): TestCountData[] => {
+  const countMap = tests.reduce((acc, test) => {
+    const date = test.createdAt.toISOString().split('T')[0];
+    acc[date] = (acc[date] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  return Object.entries(countMap)
+    .map(([date, testCount]) => ({ date, testCount }))
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 };
 
 export const generateRoomCode = () => {

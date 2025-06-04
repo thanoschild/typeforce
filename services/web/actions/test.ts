@@ -6,13 +6,15 @@ import prisma from "db/src";
 import { getUserByEmail } from "@/actions/user";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { updateLeaderboards } from "./leaderboard";
-import { User } from "@prisma/client";
+import { User, Test } from "@prisma/client";
 
-export const getTest = async (userId: string) => {
+export const getTest = async (userId: string): Promise<Test[]> => {
    const tests = await prisma.test.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
-   })
+   });
+   
+   return tests;
 }
 
 export const addTest = async ({
