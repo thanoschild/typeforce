@@ -123,9 +123,12 @@ export default function UserPerformance({ data }: UserPerformanceProps) {
   } as const;
 
   return (
-    <div className="bg-theme-sub-alt p-6 rounded-lg">
-      <div className="h-[400px]">
-        <Line data={chartData} options={options} />
+    <div className="flex flex-col gap-4">
+      <span className="text-theme-text font-semibold text-xl">Performance Graph</span>
+      <div className="bg-theme-sub-alt p-6 rounded-lg">
+        <div className="h-[300px]">
+          <Line data={chartData} options={options} />
+        </div>
       </div>
     </div>
   );

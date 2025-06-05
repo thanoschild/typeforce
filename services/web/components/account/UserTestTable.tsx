@@ -14,8 +14,11 @@ export default function UserTestTable({data}: UserTestProps) {
       year: 'numeric'
     });
   };
+  const limitedData = data.slice(0, 10);
 
   return (
+    <div className="flex flex-col gap-4">
+      <span className='text-theme-text font-semibold text-xl'>Recent Tests</span>
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
@@ -28,8 +31,8 @@ export default function UserTestTable({data}: UserTestProps) {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? (
-            data.map((entry, index) => (
+          {limitedData.length > 0 ? (
+            limitedData.map((entry, index) => (
               <tr
                 key={entry.id}
                 className={`text-theme-text ${
@@ -65,6 +68,7 @@ export default function UserTestTable({data}: UserTestProps) {
           )}
         </tbody>
       </table>
+    </div>
     </div>
   )
 }

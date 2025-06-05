@@ -11,6 +11,7 @@ import { getTest } from "@/actions/test";
 import UserPerformance from "./UserPerformance";
 import { Test } from "@prisma/client";
 import UserTestTable from "./UserTestTable";
+import UserBestscore from "./UserBestscore";
 
 export default function Account() {
   const { data: session, status } = useSession();
@@ -53,6 +54,7 @@ export default function Account() {
     <div className="flex flex-col space-y-16">
       <AccountHeader user={userData} />
       <UserStats user={userData} />
+      <UserBestscore user={userData}/>
       <UserPerformance data={testData} />
       <UserTestTable data={testData}/>
     </div>

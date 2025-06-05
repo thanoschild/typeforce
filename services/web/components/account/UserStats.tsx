@@ -21,6 +21,8 @@ export default function UserStats({user}: AccountHeaderProps) {
 };
 
   return (
+    <div className="flex flex-col gap-4">
+      <span className='text-theme-text font-semibold text-xl'>Typing Stats</span>
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       <StatCard
         title="AVERAGE WPM"
@@ -47,5 +49,6 @@ export default function UserStats({user}: AccountHeaderProps) {
         className="bg-theme-sub-alt transition-colors"
       />
     </div>
+     </div>
   );
 }

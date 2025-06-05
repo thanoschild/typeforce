@@ -62,7 +62,7 @@ export default function LeaderboardPage() {
 
   // Separate useEffect for periodic fetch
   useEffect(() => {
-    const fetchInterval = setInterval(fetchLeaderboard, 30000); // 5 minutes
+    const fetchInterval = setInterval(fetchLeaderboard, 30000); 
     return () => clearInterval(fetchInterval);
   }, [fetchLeaderboard]);
 

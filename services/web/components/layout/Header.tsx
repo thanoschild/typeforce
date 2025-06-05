@@ -11,7 +11,7 @@ import { Avatar } from "../profile/Avatar";
 import { AUTH_LINK, NaveLinks } from "@/constants";
 import { useSession } from "next-auth/react";
 import { RiLoader4Line } from "react-icons/ri";
-
+import { APP_NAME } from "@/constants";
 
 export function Header() {
   const [isUserTyping, setIsUserTyping] = useState(false);
@@ -35,18 +35,12 @@ export function Header() {
           />
           <div className="flex flex-col">
             <Text className="relative text-[32px] leading-none">
-              <Text
-                className="absolute -top-1 left-1 text-[10px] leading-none font-lexend-deca"
-                dimmed={true}
-              >
-                monkey see
-              </Text>
               <span
-                className={`font-semibold font-lexend-deca ${
+                className={`font-[550] font-cascadia ${
                   isUserTyping ? "text-theme-sub" : "text-theme-text"
                 }`}
               >
-                monkeytype
+                {APP_NAME}
               </span>
             </Text>
           </div>
