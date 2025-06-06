@@ -20,6 +20,7 @@ export default function LeaderboardPage() {
 
   const fetchLeaderboard = useCallback(async () => {
     try {
+      console.log("fetch called")
       setIsLoading(true);
       setError(null);
       setCountdown(30);
@@ -48,23 +49,21 @@ export default function LeaderboardPage() {
   }, [isAllTime, selectedMode]);
 
   useEffect(() => {
-    // Initial fetch when dependencies change
     fetchLeaderboard();
-  }, [isAllTime, selectedMode, fetchLeaderboard]);
 
-  useEffect(() => {
     const countdownInterval = setInterval(() => {
       setCountdown((prev) => (prev > 0 ? prev - 1 : 30));
     }, 1000);
 
-    return () => clearInterval(countdownInterval);
-  }, []);
+    const fetchInterval = setInterval(() => {
+      fetchLeaderboard();
+    }, 30000);
 
-  // Separate useEffect for periodic fetch
-  useEffect(() => {
-    const fetchInterval = setInterval(fetchLeaderboard, 30000); 
-    return () => clearInterval(fetchInterval);
-  }, [fetchLeaderboard]);
+    return () => {
+      clearInterval(countdownInterval);
+      clearInterval(fetchInterval);
+    };
+  }, [isAllTime, selectedMode, fetchLeaderboard]);
 
   const filteredData = leaderboardData.filter((entry) =>
     entry?.username?.toLowerCase().includes(searchTerm?.toLowerCase())
@@ -83,9 +82,9 @@ export default function LeaderboardPage() {
             />
           </div>
           <div className="md:col-span-3">
-            <div className="flex items-center gap-2 mb-2">
-              <LuCrown className="w-6 h-6 text-theme-text" />
-              <h1 className="text-2xl font-bold text-theme-text">
+            <div className="flex items-center gap-2 mb-2 text-3xl">
+              <LuCrown className="text-theme-text" />
+              <h1 className="font-bold text-theme-text">
                 Leaderboard
               </h1>
             </div>

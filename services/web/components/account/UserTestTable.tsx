@@ -18,7 +18,7 @@ export default function UserTestTable({data}: UserTestProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <span className='text-theme-text font-semibold text-xl'>Recent Tests</span>
+      <span className='text-theme-text font-semibold text-3xl'>Recent Tests</span>
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
@@ -49,7 +49,7 @@ export default function UserTestTable({data}: UserTestProps) {
                   {entry.time}s
                 </td>
                 <td className="py-4 px-4 text-right">
-                    {`${entry.modeOption} ${entry.mode.charAt(0).toUpperCase() + entry.mode.slice(1)}`}
+                    {`${entry.mode.charAt(0).toUpperCase() + entry.mode.slice(1)} ${entry.modeOption}`}
                 </td>
                 <td className="py-4 px-4 text-right last:rounded-r-lg">
                   {formatDate(entry.createdAt)}

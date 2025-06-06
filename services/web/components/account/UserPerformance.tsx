@@ -124,7 +124,7 @@ export default function UserPerformance({ data }: UserPerformanceProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-theme-text font-semibold text-xl">Performance Graph</span>
+      <span className="text-theme-text font-semibold text-3xl">Performance Graph</span>
       <div className="bg-theme-sub-alt p-6 rounded-lg">
         <div className="h-[300px]">
           <Line data={chartData} options={options} />

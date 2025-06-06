@@ -1,9 +1,11 @@
-import React from 'react'
+'use client';
 
-type Props = {}
+import React from 'react';
+import UnderConstructionPage from '@/components/core/UnderConstruction';
 
-export default function AboutPage({}: Props) {
+export default function AboutPage() {
+
   return (
-    <div>AboutPage</div>
-  )
+     <UnderConstructionPage/>
+  );
 }

@@ -47,7 +47,7 @@ export default function UserBestscore({ user }: UserBestscoreProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-theme-text font-semibold text-xl">
+      <span className="text-theme-text font-semibold text-3xl">
         All Time Best Scores
       </span>
 

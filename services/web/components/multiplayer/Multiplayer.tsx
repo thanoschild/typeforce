@@ -37,7 +37,7 @@ export default function Multiplayer({}: Props) {
         <div className='space-y-4'>
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-text items-center"
+            className="flex flex-col sm:flex-row gap-3 text-3xl text-theme-sub items-center"
           > <LuSwords className='hidden md:block'/>
             <span className="font-bold mb-4 sm:mb-0">Multiplayer Arena</span>
           </motion.div>
@@ -52,9 +52,9 @@ export default function Multiplayer({}: Props) {
         </div>
 
         <motion.div variants={itemVariants}>
-          <div className="text-theme-sub">
+          {/* <div className="">
             <div>
-              <div className="flex flex-col sm:flex-row gap-3 text-2xl text-theme-text items-center">
+              <div className="flex flex-col sm:flex-row gap-3 text-3xl text-theme-sub items-center">
                 <RiChatHistoryLine className="hidden md:block" />
                 <span className="font-bold mb-4 sm:mb-0">Room History</span>
               </div>
@@ -66,7 +66,7 @@ export default function Multiplayer({}: Props) {
                 <div>Room History</div>
               )}
             </div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </motion.div>

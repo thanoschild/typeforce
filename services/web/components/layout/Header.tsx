@@ -36,7 +36,7 @@ export function Header() {
           <div className="flex flex-col">
             <Text className="relative text-[32px] leading-none">
               <span
-                className={`font-[550] font-cascadia ${
+                className={`font-lexend-deca ${
                   isUserTyping ? "text-theme-sub" : "text-theme-text"
                 }`}
               >
