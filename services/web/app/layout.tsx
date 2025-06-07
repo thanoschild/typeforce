@@ -15,7 +15,7 @@ import { WebSocketProvider } from "@/context/WebSocketContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Type Test",
+  title: "typeforce",
   description: "Test your typing speed and accuracy",
 };
 
