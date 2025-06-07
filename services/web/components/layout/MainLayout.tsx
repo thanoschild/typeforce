@@ -7,9 +7,6 @@ import Footer from "@/components/layout/Footer";
 
 export function MainLayout({ children }: { children: ReactNode }) {
 
-  const isUserTyping: boolean = false;
-  const pageWidth = "1920px"; 
-
   return (
     <main className="flex flex-col min-h-screen px-4 sm:px-8 md:px-16 lg:px-20">
       <Header />

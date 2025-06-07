@@ -3,15 +3,14 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useTypingTest } from "@/context/TypingContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { calculateAccuracy, calculateWPM, cn, parseWords } from "@/lib/utils";
+import { calculateAccuracy, calculateWPM, parseWords } from "@/lib/utils";
 import { generateRandomWords } from "@/lib/utils";
 import Characters, { Character } from "./Characters";
 import Result from "./Result";
-import Modes from "./Modes";
 import { Word } from "@/types/words";
                                                                                         
 export default function Interface() {
-  const { mode, setMode, modeOption, setModeOption, raceCompleted, setRaceCompleted } = useTypingTest();
+  const { mode, modeOption, raceCompleted, setRaceCompleted } = useTypingTest();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [userInput, setUserInput] = useState<string>("");
   const [text, setText] = useState<string>("");
@@ -42,13 +41,12 @@ export default function Interface() {
     } else {
       newText = "This is a placeholder text.";
     }
-    console.log("text: ", text);
-    const wordArray = text.split(' ');
-    console.log("wordArray: ", wordArray);
+
     const newWords = parseWords(newText.split(' '));
     setWords(newWords);
     setText(newText);
-  }, [mode, modeOption]);
+
+  }, [mode, modeOption]); 
 
   const resetTest = useCallback(() => {
     generateNewText();
@@ -62,7 +60,7 @@ export default function Interface() {
     setMistakes([]);
     if (inputRef.current) inputRef.current.focus();
     setCaretPosition({ top: 0, left: 0 });
-  }, [generateNewText]);
+  }, [generateNewText, setRaceCompleted]); // need to test this
 
   useEffect(() => {
     generateNewText();
@@ -238,7 +236,6 @@ export default function Interface() {
     return () => clearTimeout(typingTimer);
   }, [userInput]);
 
-  console.log("words: ", words);
   return (
     <AnimatePresence mode="wait">
       {!raceCompleted ? (

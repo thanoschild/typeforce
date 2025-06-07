@@ -4,12 +4,10 @@ import { getUserByEmail } from "@/actions/user";
 import { USER_STATS_LINK } from "@/constants";
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { RiBarChart2Line, RiEarthLine, RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
-import { twMerge } from "tailwind-merge";
 
 interface AvatarProps {
   user: {
@@ -20,7 +18,7 @@ interface AvatarProps {
   className?: string;
 }
 
-export function Avatar({ user, className }: AvatarProps) {
+export function Avatar({ user }: AvatarProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [currUser, setCurrUser] = useState<User | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null);

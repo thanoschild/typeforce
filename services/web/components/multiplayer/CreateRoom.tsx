@@ -10,18 +10,17 @@ import { showToast } from "../core/Toast";
 import { RiLoader4Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-type Props = {};
 
-export default function CreateRoom({}: Props) {
+export default function CreateRoom() {
   const [isPending, startTransition] = useTransition();
+  const { data: session } = useSession();
   const {
     mode,
     setMode,
     modeOption,
-    setModeOption,
-    raceCompleted,
-    setRaceCompleted,
+    setModeOption
   } = useTypingTest();
   const router = useRouter();
   const [roomData, setRoomData] = useState<RoomFormData>({
@@ -36,6 +35,12 @@ export default function CreateRoom({}: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!session) {
+      showToast("error", "Authentication Required", "Please sign in to create a room");
+      router.push("/auth");
+      return;
+    }
+
     if (roomData.name.trim().length < 6) {
       showToast("error", "Error", "Room name must be at least 6 characters");
       return;

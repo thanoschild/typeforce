@@ -30,6 +30,17 @@ export const themeColorVariables = {
   colorfulErrorExtra: '--colorful-error-extra-color',
 } as const;
 
+export const availableThemes = [
+  { id: 'carbon', name: 'carbon' },
+  { id: 'vscode', name: 'vscode' },
+  { id: 'tangerine', name: 'tangerine' },
+  { id: 'solarized_light', name: 'solarized light' },
+  { id: 'terminal', name: 'terminal' },
+  { id: 'dracula', name: 'dracula' },
+  { id: 'onedark', name: 'one dark' },
+  
+];
+
 export function extractThemeColors(cssContent: string): ThemeColors {
   const colorMatches = {
     bg: cssContent.match(/--bg-color:\s*([^;]+);/),
@@ -45,16 +56,16 @@ export function extractThemeColors(cssContent: string): ThemeColors {
   };
 
   return {
-    bg: colorMatches.bg?.[1]?.trim() ?? '#ffffff',
-    main: colorMatches.main?.[1]?.trim() ?? '#1a73e8',
-    caret: colorMatches.caret?.[1]?.trim() ?? '#1a73e8',
-    sub: colorMatches.sub?.[1]?.trim() ?? '#666666',
-    subAlt: colorMatches.subAlt?.[1]?.trim() ?? '#888888',
-    text: colorMatches.text?.[1]?.trim() ?? '#000000',
-    error: colorMatches.error?.[1]?.trim() ?? '#d32f2f',
-    errorExtra: colorMatches.errorExtra?.[1]?.trim() ?? '#ef5350',
-    colorfulError: colorMatches.colorfulError?.[1]?.trim() ?? '#ff1744',
-    colorfulErrorExtra: colorMatches.colorfulErrorExtra?.[1]?.trim() ?? '#ff5252',
+    bg: colorMatches.bg?.[1]?.trim() ?? '#191a1b;',
+    main: colorMatches.main?.[1]?.trim() ?? '#79a617',
+    caret: colorMatches.caret?.[1]?.trim() ?? '#79a617',
+    sub: colorMatches.sub?.[1]?.trim() ?? '#48494b',
+    subAlt: colorMatches.subAlt?.[1]?.trim() ?? '#141516',
+    text: colorMatches.text?.[1]?.trim() ?? '#e7eae0',
+    error: colorMatches.error?.[1]?.trim() ?? '#a61717',
+    errorExtra: colorMatches.errorExtra?.[1]?.trim() ?? '#731010',
+    colorfulError: colorMatches.colorfulError?.[1]?.trim() ?? '#a61717',
+    colorfulErrorExtra: colorMatches.colorfulErrorExtra?.[1]?.trim() ?? '#731010',
   };
 }
 
@@ -76,14 +87,19 @@ export async function getTheme(name: string): Promise<ThemeColors> {
 
 // Default theme colors
 export const defaultTheme: ThemeColors = {
-  bg: '#ffffff',
-  main: '#1a73e8',
-  caret: '#1a73e8',
-  sub: '#666666',
-  subAlt: '#888888',
-  text: '#000000',
-  error: '#d32f2f',
-  errorExtra: '#ef5350',
-  colorfulError: '#ff1744',
-  colorfulErrorExtra: '#ff5252'
+  bg: '#313131',
+  main: '#f66e0d',
+  caret: '#f66e0d',
+  sub: '#616161',
+  subAlt: '#2b2b2b',
+  text: '#f5e6c8',
+  error: '#e72d2d',
+  errorExtra: '#7e2a33',
+  colorfulError: '#e72d2d',
+  colorfulErrorExtra: '#7e2a33'
 };
+
+export function getThemeNameById(id: string): string {
+  const theme = availableThemes.find(theme => theme.id === id);
+  return theme ? theme.name : "Unknown Theme";
+}

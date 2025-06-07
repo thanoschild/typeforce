@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { ThemeColors, defaultTheme, getTheme, themeColorVariables } from '@/lib/theme';
+import { ThemeColors, defaultTheme, getTheme, themeColorVariables, availableThemes } from '@/lib/theme';
 
 interface ThemeContextValue {
   currentTheme: string;
@@ -10,22 +10,10 @@ interface ThemeContextValue {
   availableThemes: { id: string; name: string }[];
 }
 
-const availableThemes = [
-  { id: 'default', name: 'Default' },
-  { id: 'nord', name: 'Nord' },
-  { id: 'monokai', name: 'Monokai' },
-  { id: 'dracula', name: 'Dracula' },
-  { id: 'solarized_dark', name: 'Solarized Dark' },
-  { id: 'solarized_light', name: 'Solarized Light' },
-  { id: 'rose_pine', name: 'Rose Pine' },
-  { id: 'moonlight', name: 'Moonlight' },
-  { id: 'onedark', name: 'One Dark' },
-];
-
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [currentTheme, setCurrentTheme] = useState('default');
+  const [currentTheme, setCurrentTheme] = useState('carbon');
   const [themeColors, setThemeColors] = useState<ThemeColors>(defaultTheme);
 
   const applyThemeColors = useCallback((colors: ThemeColors) => {
@@ -55,7 +43,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     try {
       console.log(`Setting theme to: ${name}`);
       let colors: ThemeColors;
-      if (name === 'default') {
+
+      if (name === 'carbon') {
         colors = defaultTheme;
       } else {
         colors = await getTheme(name);
@@ -66,7 +55,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem('selectedTheme', name);
     } catch (error) {
       console.error('Failed to set theme:', error);
-      setCurrentTheme('default');
+      setCurrentTheme('carbon');
       setThemeColors(defaultTheme);
       applyThemeColors(defaultTheme);
     }
@@ -75,7 +64,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize theme from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+      const savedTheme = localStorage.getItem('selectedTheme') || 'carbon';
       setTheme(savedTheme);
     }
   }, [setTheme]);

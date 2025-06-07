@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { generateRoomCode } from "@/lib/utils";
 import prisma from "db/src";
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 };
 
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const room = await prisma.room.findMany({
       select: {
@@ -55,6 +55,7 @@ export async function GET(request: NextRequest) {
         createdAt: "desc",
       },
     });
+    return NextResponse.json(room, {status: 200});
   } catch (error) {
     console.error("Error fetching public rooms: ", error);
     return new NextResponse("Internal Error", { status: 500 });

@@ -7,16 +7,16 @@
 
 :root {
   /* Theme variables */
-  --bg-color: #ffffff;
-  --main-color: #1a73e8;
-  --caret-color: #1a73e8;
-  --sub-color: #666666;
-  --sub-alt-color: #888888;
-  --text-color: #000000;
-  --error-color: #d32f2f;
-  --error-extra-color: #ef5350;
-  --colorful-error-color: #ff1744;
-  --colorful-error-extra-color: #ff5252;
+  --bg-color: #191a1b;
+  --main-color: #79a617;
+  --caret-color: #79a617;
+  --sub-color: #48494b;
+  --sub-alt-color: #141516;
+  --text-color: #e7eae0;
+  --error-color: #a61717;
+  --error-extra-color: #731010;
+  --colorful-error-color: #a61717;
+  --colorful-error-extra-color: #731010;
 }
 
 html, body {

@@ -7,11 +7,6 @@ interface MembersSectionProps {
   members: MemberType[];
 }
 
-interface MemberAvatarProps {
-  name: string;
-  image: string;
-}
-
 export default function Members({ members }: MembersSectionProps) {
   console.log("member: ", members);
   return (

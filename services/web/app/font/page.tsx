@@ -4,9 +4,7 @@ import React from 'react'
 import { FontSelector } from '@/components/FontSelector'
 import { useFont } from '@/context/FontContext';
 
-type Props = {}
-
-export default function FontPage({}: Props) {
+export default function FontPage() {
   const { currentFont } = useFont();
 
   return (
@@ -16,7 +14,7 @@ export default function FontPage({}: Props) {
           <FontSelector />
         </div>
         <div className={`text-3xl text-theme-sub`}>
-          Home is not just a place, it's a feeling.
+          Home is not just a place, it&apos;s a feeling.
           <p>current font: {currentFont}</p>
         </div>
       </div>

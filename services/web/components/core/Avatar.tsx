@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface AvatarProps {
   name: string;
@@ -14,15 +15,15 @@ const sizeClasses = {
   md: "w-8 h-8 text-sm",
   lg: "w-12 h-12 text-base",
   xl: "w-16 h-16 text-lg",
-  dxl: "w-20 h-20 text-2xl"
+  dxl: "w-20 h-20 text-2xl",
 };
 
-export default function Avatar({ 
-  name, 
-  image, 
+export default function Avatar({
+  name,
+  image,
   className,
   imageClassName,
-  size = "md" 
+  size = "md",
 }: AvatarProps) {
   const initials = name
     ? name.split(" ").length === 1
@@ -33,19 +34,22 @@ export default function Avatar({
           .join("")
     : "?";
 
+console.log("url: ", image)
+
   return (
     <div
       className={cn(
-        "rounded-full bg-theme-text flex items-center justify-center overflow-hidden text-theme-bg font-extrabold",
+        "rounded-full bg-theme-text flex items-center justify-center overflow-hidden text-theme-bg font-extrabold relative",
         sizeClasses[size],
         className
       )}
     >
       {image ? (
-        <img 
-          src={image} 
-          alt={name} 
-          className={cn("w-full h-full object-cover", imageClassName)}
+        <Image
+          src={image}
+          alt={name}
+          fill
+          className={cn("object-cover", imageClassName)}
         />
       ) : (
         initials

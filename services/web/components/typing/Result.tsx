@@ -18,7 +18,6 @@ import {
   Tooltip,
   Legend,
   ChartData,
-  ChartOptions,
   Filler,
 } from "chart.js";
 import React, { useEffect, useMemo, useRef } from "react";

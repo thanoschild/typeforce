@@ -1,18 +1,24 @@
 import React, { useState, useTransition } from "react";
-import { FaPlus } from "react-icons/fa";
 import { RiLoader4Line } from "react-icons/ri";
 import { showToast } from "../core/Toast";
 import { LuLogIn } from "react-icons/lu";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function JoinRoom() {
   const [isPending, startTransition] = useTransition();
   const [roomId, setRoomId] = useState<string>("");
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("length: ", roomId.length)
+    if (!session) {
+      showToast("error", "Authentication Required", "Please sign in to join a room");
+      router.push("/auth");
+      return;
+    }
+
     if (roomId.trim().length < 6) {
       showToast("error", "Error", "Room name must be at least 6 characters");
       return;

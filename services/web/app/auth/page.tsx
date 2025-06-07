@@ -1,12 +1,12 @@
+import React, { Suspense } from 'react'
 import AuthPage from '@/components/auth/AuthPage'
-import React from 'react'
 
-type Props = {}
-
-export default function page({}: Props) {
+export default function page() {
   return (
     <div className="flex-1 flex items-center justify-center w-full">
-       <AuthPage/>
+       <Suspense fallback={<div>Loading...</div>}>
+        <AuthPage />
+      </Suspense>
     </div>
   )
 }

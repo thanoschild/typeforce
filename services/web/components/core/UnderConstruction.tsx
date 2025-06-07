@@ -24,7 +24,7 @@ export default function UnderConstructionPage() {
           </div>
 
           <p className="text-theme-text mb-6">
-            We're working hard to bring you an amazing typing experience. This
+            We&apos;re working hard to bring you an amazing typing experience. This
             page is currently under development and will be available soon.
           </p>
 

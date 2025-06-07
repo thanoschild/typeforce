@@ -6,7 +6,7 @@ import { useFont } from "@/context/FontContext";
 import { useTheme } from "@/context/ThemeContext";
 import { MdOutlinePalette, MdOutlineFontDownload } from "react-icons/md";
 import Link from "next/link";
-import Button from "../core/Button";
+import { getThemeNameById } from "@/lib/theme";
 
 export default function Footer() {
   const { currentTheme } = useTheme();
@@ -43,7 +43,7 @@ export default function Footer() {
             className="flex items-center gap-1 p-0 hover:text-theme-text"
           >
             <MdOutlinePalette />
-            <p>{currentTheme}</p>
+            <p>{getThemeNameById(currentTheme)}</p>
           </Link>
         </div>
       </div>

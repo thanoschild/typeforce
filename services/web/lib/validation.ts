@@ -1,7 +1,6 @@
 import { SignUpFormData } from "@/types/form";
 import { SignInFormData } from "@/types/form";
 import { RoomFormData } from "@/types/room";
-import { modes } from "@/constants";
 
 type FormData = SignUpFormData | SignInFormData;
 
@@ -10,16 +9,16 @@ export function validateForm<T extends FormData>(data: T): Partial<T> {
 
   // Email validation for both forms
   if (!data.email) {
-      errors.email = "Email is required" as any;
+      errors.email = "Email is required";
   } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)) {
-      errors.email = "Email is invalid" as any;
+      errors.email = "Email is invalid";
   }
 
   // Password validation for both forms
   if (!data.password) {
-      errors.password = "Password is required" as any;
+      errors.password = "Password is required";
   } else if (data.password.length < 6) {
-      errors.password = "Password must be at least 6 characters" as any;
+      errors.password = "Password must be at least 6 characters";
   }
 
   // Registration specific validations

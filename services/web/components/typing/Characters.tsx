@@ -27,7 +27,6 @@ export default function Characters({
   caretPosition,
   isUserTyping,
 }: CharactersProps) {
-  const fontSize = 16;
 
   return (
     <div className="relative">

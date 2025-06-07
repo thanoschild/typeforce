@@ -28,6 +28,7 @@ export default function AccountHeader({ user }: AccountHeaderProps) {
           image={user.image || ""}
           size="dxl"
           className="border-2 border-theme-sub"
+          imageClassName=""
         />
         <div className="flex flex-col gap-1">
           <span className="text-xl text-theme-text font-bold text-left">{user.username}</span>

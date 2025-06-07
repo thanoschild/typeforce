@@ -4,7 +4,7 @@ import { AddTestTypes } from "@/types/test";
 import { getServerSession } from "next-auth";
 import prisma from "db/src";
 import { getUserByEmail } from "@/actions/user";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { updateLeaderboards } from "./leaderboard";
 import { User, Test } from "@prisma/client";
 

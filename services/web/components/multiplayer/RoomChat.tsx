@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Send, MessagesSquare } from "lucide-react";
+import { LuSend } from "react-icons/lu";
 import { ChatMessageProps, ChatProps, Message } from "@/types/chat";
 import { useWebSocket } from "@/context/WebSocketContext";
 import { v4 as uuidv4 } from "uuid";
@@ -99,7 +99,7 @@ const Chat = ({ code }: ChatProps) => {
             className="bg-theme-bg text-theme-text p-2 rounded-md disabled:text-theme-sub"
             disabled={!inputMessage.trim()}
           >
-            <Send className="w-5 h-5" />
+            <LuSend className="w-5 h-5" />
           </button>
         </form>
       </div>

@@ -77,7 +77,7 @@ export const fonts: Font[] = [
 ];
 
 export function FontProvider({ children }: { children: ReactNode }) {
-  const [currentFont, setCurrentFont] = useState<Font>('Berkeley Mono');
+  const [currentFont, setCurrentFont] = useState<Font>('Roboto Mono');
 
   useEffect(() => {
     // Load saved font preference

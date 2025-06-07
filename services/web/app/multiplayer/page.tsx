@@ -1,9 +1,7 @@
 import React from 'react'
 import Multiplayer from '@/components/multiplayer/Multiplayer'
 
-type Props = {}
-
-export default function MultiplayerPage({}: Props) {
+export default function MultiplayerPage() {
   return (
     <div className='w-full'>
         <Multiplayer/>

@@ -1,16 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import { LogoIcon } from '@/components/core/LogoIcon';
-import { Text } from '@/components/core/Text';
 import Link from 'next/link';
 import { APP_NAME } from '@/constants';
 import { RiArrowLeftLine } from 'react-icons/ri';
 import { motion } from 'framer-motion';
 
 export default function NotFound() {
-  const { themeColors } = useTheme();
 
   return (
     <div className="flex flex-col items-center justify-center flex-1 p-8 bg-theme-bg">
@@ -31,7 +27,7 @@ export default function NotFound() {
           </motion.h1>
           
           <h2 className="font-bold text-theme-text mb-6">
-            Looks like you found a page that doesn't exist.
+            Looks like you found a page that doesn&apos;t exist.
           </h2>
           
           <div className="flex flex-col items-center gap-2">        

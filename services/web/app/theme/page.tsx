@@ -3,9 +3,7 @@
 import React from 'react'
 import { useTheme } from '@/context/ThemeContext';
 
-type Props = {}
-
-export default function page({}: Props) {
+export default function Theme() {
     const { currentTheme, themeColors, setTheme, availableThemes } = useTheme();
 
   return (

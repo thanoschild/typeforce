@@ -9,7 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconClassName?: string;
 }
 
-export default function Input({ className, highlight = false, ...props }: InputProps) {
+export default function Input({ className, ...props }: InputProps) {
   return (
     <input
       className={cn(

@@ -12,6 +12,7 @@ import UserPerformance from "./UserPerformance";
 import { Test } from "@prisma/client";
 import UserTestTable from "./UserTestTable";
 import UserBestscore from "./UserBestscore";
+import { showToast } from "../core/Toast";
 
 export default function Account() {
   const { data: session, status } = useSession();
@@ -34,13 +35,16 @@ export default function Account() {
           console.error("Error fetching data:", error);
           setError("Failed to load user data");
         } finally {
+          if(error) {
+            showToast('error', "Error", error);
+          }
           setLoading(false);
         }
       }
     };
 
     fetchData();
-  }, [session?.user?.id]);
+  }, [session?.user?.id, error]);
 
   if (status === "loading" || loading) {
     return <div>Loading...</div>;

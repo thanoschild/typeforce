@@ -15,7 +15,7 @@ export default function Race({
   roomData,
   raceText,
 }: RaceProps) {
-  const { wsRef, setWsRef } = useWebSocket();
+  const { wsRef } = useWebSocket();
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Race({
         setIsRaceStarted(false);
       }, 5000);
     }
-  }, [members]);
+  }, [members, setIsRaceStarted]); // need to test this
 
   const handleProgressUpdate = useCallback(
     (wpm: number, accuracy: number, progress: number) => {

@@ -9,9 +9,8 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { TbAlertTriangle } from "react-icons/tb";
 import { RiLoader4Line } from "react-icons/ri";
 
-type Props = {};
 
-export default function Verification({}: Props) {
+export default function Verification() {
   const { themeColors } = useTheme();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -30,7 +29,7 @@ export default function Verification({}: Props) {
         setSuccess(res.success);
         setMessage(res.message);
       })
-      .catch((err) => {
+      .catch((_error) => {
         setSuccess(false);
         setMessage("Something went wrong!");
       });

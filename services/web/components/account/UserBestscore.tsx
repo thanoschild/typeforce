@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { User } from "@prisma/client";
 import Button from "../core/Button";
 import { getModeOptions, Mode } from "@/types/mode";
-import { MdOutlineFontDownload } from "react-icons/md";
-import { FiClock } from "react-icons/fi";
 import { modes } from "@/constants";
 
 interface UserBestscoreProps {

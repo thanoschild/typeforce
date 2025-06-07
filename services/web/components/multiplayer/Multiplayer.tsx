@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
+import React from 'react'
 import { motion } from "framer-motion";
 import CreateRoom from './CreateRoom';
 import JoinRoom from './JoinRoom';
 import { LuSwords } from "react-icons/lu";
-import { RiChatHistoryLine } from "react-icons/ri";
-import { RiLoader4Line } from "react-icons/ri";
 
-type Props = {}
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -24,8 +22,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function Multiplayer({}: Props) {
-    const [isPending, startTransition] = useTransition();
+export default function Multiplayer() {
 
   return (
     <motion.div

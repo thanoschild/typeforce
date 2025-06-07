@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, JSX, ReactNode, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useTypingTest } from "@/context/TypingContext";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -17,7 +17,7 @@ export type ModesProps = {
   
 
 export default function Modes() {
-  const { mode, setMode, modeOption, setModeOption, raceCompleted, setRaceCompleted } = useTypingTest();
+  const { mode, setMode, modeOption, setModeOption, raceCompleted } = useTypingTest();
 
   const handleModeChange = (mode: string) => {
     if (mode === "time") {

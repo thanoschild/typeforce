@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiLogInCircle } from "react-icons/bi";
 import { twJoin } from "tailwind-merge";
 import { LogoIcon } from "@/components/core/LogoIcon";
@@ -16,7 +16,6 @@ import { APP_NAME } from "@/constants";
 export function Header() {
   const [isUserTyping, setIsUserTyping] = useState(false);
   const { data: session, status } = useSession();
-  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <main className="w-full py-8 z-10 flex items-center justify-between gap-3">

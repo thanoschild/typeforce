@@ -54,7 +54,7 @@ export default function RegisterForm() {
           } else {
             showToast('error', 'Error', result.message);
           }
-        } catch (error) {
+        } catch (_error) {
           showToast('error', 'Error', 'Failed to register. Please try again.');
         }
       });

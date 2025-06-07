@@ -1,9 +1,14 @@
 import prisma from "db/src";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { code: string } }) {
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ code: string }> }
+) {
   try {
-    const { code } = await params;
+    const code = (await params).code;
+
     if (!code || code.length < 6) {
       return NextResponse.json(
         { error: "Invalid or missing code" },
@@ -28,7 +33,7 @@ export async function GET(request: NextRequest, { params }: { params: { code: st
 
     return NextResponse.json(room, { status: 200 });
   } catch (error) {
-    console.error("Error fetching room: ", error);
+    console.error("Error fetching room:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

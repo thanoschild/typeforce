@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, use, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import useSocket from "@/hooks/useSocket";
@@ -97,7 +97,7 @@ export default function RoomSection({ code }: RoomSectionProps) {
           break;
       }
     };
-  }, [code, socket, status, isRaceStarted]);
+  }, [code, socket, status, session?.user]); // need to test this
 
   useEffect(() => {
     joinRoom();
