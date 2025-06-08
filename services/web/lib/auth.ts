@@ -32,6 +32,7 @@ export const authOptions: NextAuthOptions = {
           include_granted_scopes: true,
         },
       },
+      checks: ['none'],
     }),
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -43,6 +44,7 @@ export const authOptions: NextAuthOptions = {
           response_type: "code",
         },
       },
+      checks: ['none'],
     }),
     CredentialsProvider({
       name: "credentials",
