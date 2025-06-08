@@ -9,17 +9,6 @@ import { validateForm } from "@/lib/validation";
 import { CustomPrismaAdapter } from "@/actions/prismaAdapter";
 
 export const authOptions: NextAuthOptions = {
-  cookies: {
-    pkceCodeVerifier: {
-      name: 'next-auth.pkce.code_verifier',
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true
-      }
-    }
-  },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -32,7 +21,6 @@ export const authOptions: NextAuthOptions = {
           include_granted_scopes: true,
         },
       },
-      checks: ['none'],
     }),
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -40,11 +28,8 @@ export const authOptions: NextAuthOptions = {
       authorization: {
         params: {
           prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
         },
       },
-      checks: ['none'],
     }),
     CredentialsProvider({
       name: "credentials",
