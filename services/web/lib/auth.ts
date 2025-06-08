@@ -9,6 +9,17 @@ import { validateForm } from "@/lib/validation";
 import { CustomPrismaAdapter } from "@/actions/prismaAdapter";
 
 export const authOptions: NextAuthOptions = {
+  cookies: {
+    pkceCodeVerifier: {
+      name: 'next-auth.pkce.code_verifier',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true
+      }
+    }
+  },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
