@@ -67,8 +67,6 @@ const createTest = async ({ wpm, accuracy, time, mode, modeOption }: AddTestType
   if (!user.id) {
     throw new Error("User ID is required");
   }
-  console.log("wpm: ", wpm);
-  console.log("accuracy: ", accuracy);
 
 
   const test = await prisma.test.create({

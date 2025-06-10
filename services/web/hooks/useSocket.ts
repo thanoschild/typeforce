@@ -8,6 +8,8 @@ const useSocket = () => {
   const { setWsRef } = useWebSocket();
 
   useEffect(() => {
+    console.log("env url: ", process.env.NEXT_PUBLIC_WS_URL);
+    console.log("ws url: ", WS_URL);
     const ws = new WebSocket(WS_URL);
 
     ws.onopen = () => {
