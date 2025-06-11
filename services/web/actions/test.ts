@@ -26,18 +26,27 @@ export const addTest = async ({
 }: AddTestTypes) => {
   try {
     if (!wpm || !accuracy || !time || !mode || !modeOption) {
-      throw new Error("Missing required fields");
+      return {
+        success: false,
+        message: "Missing required fields",
+      };
     }
 
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      throw new Error("Unauthorized: No valid session found");
+      return {
+        success: false,
+        message: "Unauthorized session",
+      };
     }
 
     const user = await getUserByEmail(session.user.email);
     if (!user) {
-      throw new Error("User not found");
+      return {
+        success: false,
+        message: "User not found",
+      };
     }
 
     if (validateTest(wpm, accuracy, user)) {
@@ -56,16 +65,21 @@ export const addTest = async ({
     }
   } catch (error) {
     console.error("Error in adding test to db:", error);
-    throw error;
+    return {
+        success: false,
+        message: "Something went wrong",
+    };
   }
 };
 
 const createTest = async ({ wpm, accuracy, time, mode, modeOption }: AddTestTypes, user: User) => {
   if (!wpm || !accuracy || !time || !mode || !modeOption) {
-    throw new Error("Missing required fields");
+    console.log("Missing required fields");
+    return;
   }
   if (!user.id) {
-    throw new Error("User ID is required");
+    console.log("User ID is required");
+    return;
   }
 
 

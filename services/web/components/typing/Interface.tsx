@@ -10,7 +10,7 @@ import Result from "./Result";
 import { Word } from "@/types/words";
                                                                                         
 export default function Interface() {
-  const { mode, modeOption, raceCompleted, setRaceCompleted } = useTypingTest();
+  const { mode, modeOption, raceCompleted, setRaceCompleted, resetTestFlag, setResetTestFlag } = useTypingTest();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [userInput, setUserInput] = useState<string>("");
   const [text, setText] = useState<string>("");
@@ -60,12 +60,13 @@ export default function Interface() {
     setMistakes([]);
     if (inputRef.current) inputRef.current.focus();
     setCaretPosition({ top: 0, left: 0 });
-  }, [generateNewText, setRaceCompleted]); // need to test this
+    setResetTestFlag(false);
+  }, [generateNewText, setRaceCompleted, setResetTestFlag]); // need to test this
 
   useEffect(() => {
     generateNewText();
     resetTest();
-  }, [mode, modeOption, generateNewText, resetTest]);
+  }, [mode, modeOption, generateNewText, resetTest, resetTestFlag]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

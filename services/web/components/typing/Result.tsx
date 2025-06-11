@@ -157,7 +157,7 @@ export default function Result({
       try {
         const testDataResponse = await addTest(testData);
         testSavedRef.current = true;
-        if(!testDataResponse.success) {
+        if(!testDataResponse.success && testDataResponse.message === "Invalid test") {
           showToast('error', "Error", testDataResponse.message);
         }
       } catch (error) {

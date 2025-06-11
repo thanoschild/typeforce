@@ -4,9 +4,12 @@ import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<"sign-in" | "sign-up">("sign-in");
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
     <div className="flex flex-grow flex-col items-center justify-center p-4">
@@ -36,7 +39,11 @@ export default function AuthPage() {
       </div>
 
       <div className="w-full max-w-sm p-4">
-        {activeTab === "sign-up" ? <RegisterForm /> : <LoginForm />}
+        {activeTab === "sign-up" ? (
+          <RegisterForm />
+        ) : (
+          <LoginForm callbackUrl={callbackUrl} />
+        )}
       </div>
     </div>
   );

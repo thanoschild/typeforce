@@ -57,10 +57,10 @@ export default function Verification() {
                 <>
                   <div
                     className={`
-                      p-4 rounded-md flex items-center gap-x-3 text-sm
+                      p-4 rounded-md flex items-center gap-x-3 text-sm text-slate-200
                       ${success 
-                        ? 'text-theme-sub' 
-                        : `text-theme-error-extra`}
+                        ? 'bg-green-500 border-2 border-green-600' 
+                        : `bg-red-500 border-2 border-red-600`}
                     `}
                     style={{
                         backgroundColor: success ? `${themeColors.sub}3A` : `${themeColors.error}3A`, // 1A is approx 10% opacity in hex
@@ -74,13 +74,8 @@ export default function Verification() {
                     <p>{message}</p>
                   </div>
                   <Link
-                    href="/"
+                    href="/auth"
                     className="text-sm text-theme-text hover:text-theme-sub transition-colors"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      // Handle navigation to login
-                      console.log('Navigate to login');
-                    }}
                   >
                     Back to login
                   </Link>

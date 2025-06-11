@@ -12,10 +12,16 @@ import { AUTH_LINK, NaveLinks } from "@/constants";
 import { useSession } from "next-auth/react";
 import { RiLoader4Line } from "react-icons/ri";
 import { APP_NAME } from "@/constants";
+import { useTypingTest } from "@/context/TypingContext";
 
 export function Header() {
+  const { setResetTestFlag } = useTypingTest();
   const [isUserTyping, setIsUserTyping] = useState(false);
   const { data: session, status } = useSession();
+
+  const handleNavClick = () => {
+    setResetTestFlag(true);
+  };
 
   return (
     <main className="w-full py-8 z-10 flex items-center justify-between gap-3">
@@ -34,13 +40,15 @@ export function Header() {
           />
           <div className="flex flex-col">
             <Text className="relative text-[32px] leading-none">
-              <span
+              <Link
+                href={"/"}
                 className={`font-lexend-deca ${
                   isUserTyping ? "text-theme-sub" : "text-theme-text"
                 }`}
+                onClick={handleNavClick}
               >
                 {APP_NAME}
-              </span>
+              </Link>
             </Text>
           </div>
         </div>
@@ -49,7 +57,11 @@ export function Header() {
         <div className="flex items-center gap-3 pt-1">
           {NaveLinks.map(({ label, href, icon }) => (
             <Tooltip key={label} label={label}>
-              <Link href={href} className="px-2">
+              <Link
+                href={href}
+                className="px-2"
+                onClick={() => href === "/" && handleNavClick()}
+              >
                 <span className="">{icon}</span>
               </Link>
             </Tooltip>
@@ -64,11 +76,13 @@ export function Header() {
               <RiLoader4Line className="text-xl text-theme-sub hover:text-theme-text animate-spin" />
             </div>
           ) : session?.user ? (
-             <Avatar user={session.user}/>
+            <Avatar user={session.user} />
           ) : (
-            <Link href={AUTH_LINK}>
-              <BiLogInCircle className="text-xl text-theme-sub hover:text-theme-text" />
-            </Link>
+            <Tooltip label="SignIn">
+              <Link href={AUTH_LINK}>
+                <BiLogInCircle className="text-xl text-theme-sub hover:text-theme-text" />
+              </Link>
+            </Tooltip>
           )}
         </div>
       </div>

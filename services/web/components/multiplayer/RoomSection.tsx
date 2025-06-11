@@ -11,6 +11,7 @@ import RoomHeader from "./RoomHeader";
 import Chat from "./RoomChat";
 import Members from "./RoomMembers";
 import Race from "./Race";
+import AuthGuard from "../auth/AuthGuard";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -118,6 +119,7 @@ export default function RoomSection({ code }: RoomSectionProps) {
   console.log("members: ", members)
 
   return (
+    <AuthGuard message="Sign in to join the room">
     <motion.div
       variants={containerVariants}
       initial="hidden"
@@ -151,5 +153,6 @@ export default function RoomSection({ code }: RoomSectionProps) {
         </motion.div>
       </div>
     </motion.div>
+    </AuthGuard>
   )
 }

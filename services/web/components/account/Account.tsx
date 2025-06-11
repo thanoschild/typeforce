@@ -35,8 +35,8 @@ export default function Account() {
           console.error("Error fetching data:", error);
           setError("Failed to load user data");
         } finally {
-          if(error) {
-            showToast('error', "Error", error);
+          if (error) {
+            showToast("error", "Error", error);
           }
           setLoading(false);
         }
@@ -55,12 +55,12 @@ export default function Account() {
   }
 
   return (
-    <div className="flex flex-col space-y-16">
-      <AccountHeader user={userData} />
-      <UserStats user={userData} />
-      <UserBestscore user={userData}/>
-      <UserPerformance data={testData} />
-      <UserTestTable data={testData}/>
-    </div>
+      <div className="flex flex-col space-y-16">
+        <AccountHeader user={userData} />
+        <UserStats user={userData} />
+        <UserBestscore user={userData} />
+        <UserPerformance data={testData} />
+        <UserTestTable data={testData} />
+      </div>
   );
 }

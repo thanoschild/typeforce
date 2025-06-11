@@ -234,7 +234,7 @@ export default function Interface({
 
           {raceStarted && (
             <motion.div
-              className="mt-8 text-center text-xl"
+              className="mt-8 text-center text-xl text-theme-text"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >

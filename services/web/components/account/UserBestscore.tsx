@@ -57,7 +57,7 @@ export default function UserBestscore({ user }: UserBestscoreProps) {
               onClick={() => setSelectedMode(mode)}
               isSelected={selectedMode === mode}
               className={`max-w-[120px] ${
-                selectedMode === mode ? "bg-theme-main" : "bg-theme-bg"
+                selectedMode === mode ? "bg-theme-main text-theme-bg" : "bg-theme-bg text-theme-text"
               }`}
             >
               {mode}

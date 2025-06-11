@@ -108,6 +108,12 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl) || url.startsWith('/')) {
+        return url;
+      }
+      return baseUrl;
+    },
   },
   adapter: CustomPrismaAdapter(),
   session: { strategy: "jwt" },

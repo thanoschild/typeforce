@@ -136,7 +136,7 @@ export default function RegisterForm() {
           className="w-full bg-theme-sub-alt hover:bg-theme-text text-theme-text hover:text-theme-sub-alt flex items-center justify-center py-2.5 rounded-md transition-colors duration-200 mt-6"
         >
           {isPending ? (
-            <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
+            <RiLoader4Line className="text-2xl animate-spin" />
           ) : (
             <>
               <LuUserPlus className="mr-2" size={20} />

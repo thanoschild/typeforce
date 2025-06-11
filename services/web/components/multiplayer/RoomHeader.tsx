@@ -55,7 +55,7 @@ export default function RoomHeader({
     if (!roomData?.code) return;
 
     try {
-      const inviteUrl = `${window.location.origin}/multiplayer/room/${roomData.code}`;
+      const inviteUrl = `${roomData.code}`;
       navigator.clipboard.writeText(inviteUrl);
       setIsCopied(true);
       showToast("success", "Success", "Invite link copied to clipboard!");

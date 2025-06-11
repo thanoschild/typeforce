@@ -14,7 +14,11 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/constants";
 import { useSearchParams } from "next/navigation";
 import { RiLoader4Line } from "react-icons/ri";
 
-export default function LoginForm() {
+interface LoginFormProps {
+  callbackUrl: string;
+}
+
+export default function LoginForm({callbackUrl}: LoginFormProps) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,7 +46,7 @@ export default function LoginForm() {
     try {
       const result = await signIn(provider, {
         redirect: false,
-        callbackUrl: DEFAULT_LOGIN_REDIRECT,
+        callbackUrl: callbackUrl,
       });
   
       if (result?.error) {
@@ -100,7 +104,7 @@ export default function LoginForm() {
               email: formData.email,
               password: formData.password,
               redirect: true,
-              callbackUrl: DEFAULT_LOGIN_REDIRECT,
+              callbackUrl: callbackUrl,
             });
             showToast("success", "Success", "Logged in successfully!");
           } else {
@@ -207,7 +211,7 @@ export default function LoginForm() {
           className="w-full bg-theme-sub-alt hover:bg-theme-text text-theme-text hover:text-theme-sub-alt flex items-center justify-center py-2.5 rounded-md transition-colors duration-200 mt-6"
         >
           {isPending ? (
-            <RiLoader4Line className="text-2xl text-theme-text animate-spin" />
+            <RiLoader4Line className="text-2xl animate-spin" />
           ) : (
             <>
               <LuLogIn className="mr-2" size={20} />
