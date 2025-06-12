@@ -1,22 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react'
-import { useTheme } from '@/context/ThemeContext';
+import React from "react";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Theme() {
-    const { currentTheme, themeColors, setTheme, availableThemes } = useTheme();
+  const { currentTheme, themeColors, setTheme, availableThemes } = useTheme();
 
   return (
     <div className="min-h-screen p-8 bg-theme-bg">
-      <h1 className="text-4xl font-bold mb-4 text-theme-text">
-        Theme Test
-      </h1>
+      <h1 className="text-4xl font-bold mb-4 text-theme-text">Theme Test</h1>
 
       <div className="mb-8">
-        <label
-          htmlFor="theme-select"
-          className="mr-4 text-theme-sub"
-        >
+        <label htmlFor="theme-select" className="mr-4 text-theme-sub">
           Select Theme:
         </label>
         <select
@@ -25,8 +20,8 @@ export default function Theme() {
           onChange={(e) => setTheme(e.target.value)}
           className="p-2 rounded bg-theme-bg text-theme-text border border-theme-sub focus:outline-none focus:border-theme-main"
         >
-          {availableThemes.map((theme) => (
-            <option key={theme.id} value={theme.id}>
+          {Object.entries(availableThemes).map(([id, theme]) => (
+            <option key={id} value={id}>
               {theme.name}
             </option>
           ))}
@@ -48,9 +43,7 @@ export default function Theme() {
                 className="h-8 rounded mb-2"
                 style={{ backgroundColor: value }}
               />
-              <div className="text-theme-sub text-sm">
-                {value}
-              </div>
+              <div className="text-theme-sub text-sm">{value}</div>
             </div>
           ))}
         </div>
@@ -63,13 +56,13 @@ export default function Theme() {
         <div className="space-x-4">
           <button
             className="px-4 py-2 rounded bg-theme-main text-theme-bg hover:bg-theme-error transition-all duration-200 ease-in-out active:scale-95"
-            onClick={() => console.log('Button clicked')}
+            onClick={() => console.log("Button clicked")}
           >
             Primary Button
           </button>
           <button
             className="px-4 py-2 rounded bg-theme-bg text-theme-text border border-theme-sub hover:border-theme-main hover:text-theme-main transition-all duration-200 ease-in-out active:scale-95"
-            onClick={() => console.log('Secondary button clicked')}
+            onClick={() => console.log("Secondary button clicked")}
           >
             Secondary Button
           </button>
@@ -81,13 +74,9 @@ export default function Theme() {
       </div>
 
       <div className="p-4 rounded border border-theme-sub bg-theme-bg">
-        <p className="text-theme-text mb-2">
-          Regular text in a container
-        </p>
-        <p className="text-theme-sub">
-          Secondary text with different color
-        </p>
+        <p className="text-theme-text mb-2">Regular text in a container</p>
+        <p className="text-theme-sub">Secondary text with different color</p>
       </div>
     </div>
-  )
+  );
 }

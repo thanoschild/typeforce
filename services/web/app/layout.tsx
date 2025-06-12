@@ -22,6 +22,52 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload selected theme variables synchronously */}
+        <script
+           dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('preferred-theme') || 'carbon';
+                  const xhr = new XMLHttpRequest();
+                  xhr.open('GET', 'themes/' + theme + '.json', false); // Sync request
+                  xhr.send(null);
+                  if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    const root = document.documentElement;
+                    for (const key in data) {
+                      if (data.hasOwnProperty(key)) {
+                        root.style.setProperty(key, data[key]);
+                      }
+                    }
+                    root.setAttribute('data-theme', theme);
+                  }
+                } catch (e) {
+                  console.error('Theme preload error:', e);
+                }
+              })();
+            `,
+          }}
+        />
+        {/* Fallback theme for no-JS browsers */}
+        <noscript>
+          <style>{`
+            :root {
+              --bg-color: #313131;
+              --main-color: #f66e0d;
+              --caret-color: #f66e0d;
+              --sub-color: #616161;
+              --sub-alt-color: #2b2b2b;
+              --text-color: #f5e6c8;
+              --error-color: #e72d2d;
+              --error-extra-color: #7e2a33;
+              --colorful-error-color: #e72d2d;
+              --colorful-error-extra-color: #7e2a33;
+            }
+          `}</style>
+        </noscript>
+      </head>
       <body
         className={`bg-theme-bg font-default transition-colors ${inter.className}`}
       >
