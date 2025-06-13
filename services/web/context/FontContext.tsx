@@ -1,88 +1,24 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { FontType, availableFonts, defaultFontId } from '@/lib/font'
 
-type Font = 
-  | 'Fira Code'
-  | 'Inconsolata'
-  | 'JetBrains Mono'
-  | 'Roboto'
-  | 'Ubuntu'
-  | 'Nunito'
-  | 'Montserrat'
-  | 'Lato'
-  | 'Lexend'
-  | 'Oxygen'
-  | 'Titillium'
-  | 'Vazirmatn'
-  | 'Itim'
-  | 'Lalezar'
-  | 'Comfortaa'
-  | 'Coming Soon'
-  | 'Atkinson'
-  | 'Parkinsans'
-  | 'Noto Naskh'
-  | 'Hack'
-  | 'IBM Plex Mono'
-  | 'Geist Mono'
-  | 'Cascadia'
-  | 'Commit Mono'
-  | 'Overpass Mono'
-  | 'Mononoki'
-  | 'Source Code'
-  | 'Ubuntu Mono'
-  | 'Roboto Mono'
-  | 'Lexend Deca'
-  | 'Berkeley Mono';
 
 interface FontContextType {
-  currentFont: Font;
-  setFont: (font: Font) => void;
+  currentFont: FontType;
+  setFont: (font: FontType) => void;
+  availableFonts: typeof availableFonts;
 }
 
 const FontContext = createContext<FontContextType | undefined>(undefined);
 
-export const fonts: Font[] = [
-  'Fira Code',
-  'Inconsolata',
-  'JetBrains Mono',
-  'Roboto',
-  'Ubuntu',
-  'Nunito',
-  'Montserrat',
-  'Lato',
-  'Lexend',
-  'Oxygen',
-  'Titillium',
-  'Vazirmatn',
-  'Itim',
-  'Lalezar',
-  'Comfortaa',
-  'Coming Soon',
-  'Atkinson',
-  'Parkinsans',
-  'Noto Naskh',
-  'Hack',
-  'IBM Plex Mono',
-  'Geist Mono',
-  'Cascadia',
-  'Commit Mono',
-  'Overpass Mono',
-  'Mononoki',
-  'Source Code',
-  'Ubuntu Mono',
-  'Roboto Mono',
-  'Lexend Deca',
-  'Berkeley Mono'
-];
-
 export function FontProvider({ children }: { children: ReactNode }) {
-  const [currentFont, setCurrentFont] = useState<Font>('Roboto Mono');
+  const [currentFont, setCurrentFont] = useState<FontType>(defaultFontId);
 
   useEffect(() => {
     // Load saved font preference
-    const savedFont = localStorage.getItem('preferred-font') as Font;
-    if (savedFont && fonts.includes(savedFont)) {
+    const savedFont = localStorage.getItem('preferred-font') as FontType;
+    if (savedFont && savedFont in availableFonts) {
       setCurrentFont(savedFont);
     }
   }, []);
@@ -92,12 +28,12 @@ export function FontProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('preferred-font', currentFont);
   }, [currentFont]);
 
-  const setFont = (font: Font) => {
+  const setFont = (font: FontType) => {
     setCurrentFont(font);
   };
 
   return (
-    <FontContext.Provider value={{ currentFont, setFont }}>
+    <FontContext.Provider value={{ currentFont, setFont, availableFonts }}>
       {children}
     </FontContext.Provider>
   );

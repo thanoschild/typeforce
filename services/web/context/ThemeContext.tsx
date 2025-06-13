@@ -5,7 +5,6 @@ import {
   useContext,
   useState,
   useCallback,
-  useEffect,
   useRef,
   useLayoutEffect,
 } from "react";
@@ -37,10 +36,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       const value = colors[key as keyof ThemeColors];
       root.style.setProperty(cssVar, value);
     }
-
-    // Toggle class to force repaint (optional; can remove if unnecessary)
-    root.dataset.theme =
-      root.dataset.theme === "theme-a" ? "theme-b" : "theme-a";
   }, []);
 
   const setTheme = useCallback(
@@ -64,7 +59,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize theme from localStorage on mount
   useLayoutEffect(() => {
     if (typeof window !== "undefined" && !alreadyApplied.current) {
-      const savedTheme = localStorage.getItem("preferred-theme") || "carbon";
+      const savedTheme = localStorage.getItem("preferred-theme") || defaultTheme;
       alreadyApplied.current = true;
       setTheme(savedTheme);
     }

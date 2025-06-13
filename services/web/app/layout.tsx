@@ -9,7 +9,7 @@ import { TypingProvider } from "@/context/TypingContext";
 import AuthProvider from "@/components/providers/AuthProvider";
 
 import { FontLayout } from "@/components/layout/FontLayout";
-import "@/static/fonts/fonts.css";
+import "@/public/fonts/fonts.css";
 import { WebSocketProvider } from "@/context/WebSocketContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,7 +41,6 @@ export default function RootLayout(props: { children: ReactNode }) {
                         root.style.setProperty(key, data[key]);
                       }
                     }
-                    root.setAttribute('data-theme', theme);
                   }
                 } catch (e) {
                   console.error('Theme preload error:', e);
