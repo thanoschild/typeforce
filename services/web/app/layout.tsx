@@ -8,7 +8,6 @@ import { FontProvider } from "../context/FontContext";
 import { TypingProvider } from "@/context/TypingContext";
 import AuthProvider from "@/components/providers/AuthProvider";
 
-import { FontLayout } from "@/components/layout/FontLayout";
 import "@/public/fonts/fonts.css";
 import { WebSocketProvider } from "@/context/WebSocketContext";
 
@@ -25,7 +24,7 @@ export default function RootLayout(props: { children: ReactNode }) {
       <head>
         {/* Preload selected theme variables synchronously */}
         <script
-           dangerouslySetInnerHTML={{
+          dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
@@ -42,6 +41,9 @@ export default function RootLayout(props: { children: ReactNode }) {
                       }
                     }
                   }
+                  
+                  const preferredFont = localStorage.getItem('preferred-font') || 'Roboto Mono';
+                  document.documentElement.style.fontFamily = '"' + preferredFont + '", monospace';
                 } catch (e) {
                   console.error('Theme preload error:', e);
                 }
@@ -75,9 +77,7 @@ export default function RootLayout(props: { children: ReactNode }) {
             <WebSocketProvider>
               <ThemeProvider>
                 <FontProvider>
-                  <FontLayout>
-                    <MainLayout>{props.children}</MainLayout>
-                  </FontLayout>
+                  <MainLayout>{props.children}</MainLayout>
                 </FontProvider>
               </ThemeProvider>
             </WebSocketProvider>

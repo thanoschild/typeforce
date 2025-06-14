@@ -9,9 +9,9 @@ export function FontLayout({ children }: { children: React.ReactNode }) {
   return (
     <div 
       className='font-wrapper' 
-      style={{ 
-        fontFamily: `"${availableFonts[currentFont]}", monospace`
-      }}
+      // style={{ 
+      //   fontFamily: `"${currentFont}", monospace`
+      // }}
     >
       {children}
     </div>

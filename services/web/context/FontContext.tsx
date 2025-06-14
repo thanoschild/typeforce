@@ -1,8 +1,15 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { FontType, availableFonts, defaultFontId } from '@/lib/font'
-
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from "react";
+import { FontType, availableFonts, defaultFont } from "@/lib/font";
 
 interface FontContextType {
   currentFont: FontType;
@@ -13,24 +20,34 @@ interface FontContextType {
 const FontContext = createContext<FontContextType | undefined>(undefined);
 
 export function FontProvider({ children }: { children: ReactNode }) {
-  const [currentFont, setCurrentFont] = useState<FontType>(defaultFontId);
+  const [currentFont, setCurrentFont] = useState<FontType>(defaultFont);
+  const alreadyApplied = useRef(false);
 
-  useEffect(() => {
-    // Load saved font preference
-    const savedFont = localStorage.getItem('preferred-font') as FontType;
-    if (savedFont && savedFont in availableFonts) {
-      setCurrentFont(savedFont);
-    }
+  const applyFont = useCallback((font: FontType) => {
+    if (typeof document === "undefined") return;
+    document.documentElement.style.fontFamily = `"${font}", monospace`;
   }, []);
 
-  useEffect(() => {
-    // Save font preference when it changes
-    localStorage.setItem('preferred-font', currentFont);
-  }, [currentFont]);
+  const setFont = useCallback(
+    (font: FontType) => {
+      setCurrentFont(font);
+      applyFont(font);
+      console.log("set font");
+      localStorage.setItem("preferred-font", font);
+    },
+    [applyFont]
+  );
 
-  const setFont = (font: FontType) => {
-    setCurrentFont(font);
-  };
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined" && !alreadyApplied.current) {
+      const savedFont = localStorage.getItem("preferred-font") || defaultFont;
+      const validFont = availableFonts.includes(savedFont as FontType)
+        ? (savedFont as FontType)
+        : defaultFont;
+      alreadyApplied.current = true;
+      setFont(validFont);
+    }
+  }, [setFont]);
 
   return (
     <FontContext.Provider value={{ currentFont, setFont, availableFonts }}>
@@ -42,7 +59,7 @@ export function FontProvider({ children }: { children: ReactNode }) {
 export function useFont() {
   const context = useContext(FontContext);
   if (context === undefined) {
-    throw new Error('useFont must be used within a FontProvider');
+    throw new Error("useFont must be used within a FontProvider");
   }
   return context;
-} 
+}

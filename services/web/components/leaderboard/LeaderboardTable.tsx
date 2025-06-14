@@ -1,5 +1,7 @@
+'use client'
+
+import React, { useEffect } from "react";
 import { LeaderboardDataType } from "@/types/leaderboard";
-import React from "react";
 import { LuCrown } from "react-icons/lu";
 import Input from "../core/Input";
 
@@ -16,6 +18,12 @@ export default function LeaderboardTable({
   leaderboardData,
   countdown,
 }: LeaderboardTableProps) {
+  useEffect(() => {
+    if (countdown === 30) {
+      setSearchTerm('');
+    }
+  }, [countdown, setSearchTerm]);
+
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="p-4 flex items-center justify-between">
@@ -23,6 +31,7 @@ export default function LeaderboardTable({
           Next Refresh in: <span className="font-medium">{countdown}</span>
         </div>
         <Input
+          key={""}
           type="text"
           placeholder="Search username"
           value={searchTerm}

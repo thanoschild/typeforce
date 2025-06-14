@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useTheme } from "@/context/ThemeContext";
-import { availableThemes } from "@/lib/theme";
+import { availableThemes, defaultTheme } from "@/lib/theme";
 import { IoClose } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import ThemePreview from "./ThemePreview";
@@ -54,7 +54,7 @@ export default function ThemeSelector() {
         </p>
         <div className="flex items-center justify-between">
           <div className="text-lg text-theme-main font-extrabold capitalize">
-            {availableThemes[currentTheme]?.name || "Default"}
+            {availableThemes[currentTheme]?.name || defaultTheme}
           </div>
 
           <button

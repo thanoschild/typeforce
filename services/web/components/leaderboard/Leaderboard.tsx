@@ -6,8 +6,9 @@ import Sidebar from "./Sidebar";
 import { LuCrown } from "react-icons/lu";
 import { motion } from "framer-motion";
 import LeaderboardTable from "./LeaderboardTable";
+import Loader from "../core/Loader";
 
-export default function LeaderboardPage() {
+export default function Leaderboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAllTime, setIsAllTime] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,6 @@ export default function LeaderboardPage() {
 
   const fetchLeaderboard = useCallback(async () => {
     try {
-      console.log("fetch called")
       setIsLoading(true);
       setError(null);
       setCountdown(30);
@@ -92,13 +92,16 @@ export default function LeaderboardPage() {
               className="h-[4px] w-full rounded-lg bg-theme-sub-alt my-2"
               layout
             />
-            {/* <LeaderboardHeader category={category} time={time} /> */}
-            <LeaderboardTable
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              leaderboardData={filteredData}
-              countdown={countdown}
-            />
+            {isLoading ? (
+              <Loader size="xl"/>
+            ) : (
+              <LeaderboardTable
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                leaderboardData={filteredData}
+                countdown={countdown}
+              />
+            )}
           </div>
         </div>
       </div>

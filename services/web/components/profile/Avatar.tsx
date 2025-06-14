@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { RiBarChart2Line, RiEarthLine, RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
+import { RiBarChart2Line, RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
 
 interface AvatarProps {
   user: {
@@ -50,6 +50,10 @@ export function Avatar({ user }: AvatarProps) {
     };
   }, []);
 
+  const handleLinkClick = () => {
+    setShowDropdown(false);
+  };
+
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <button
@@ -65,26 +69,24 @@ export function Avatar({ user }: AvatarProps) {
             <Link
               href={USER_STATS_LINK}
               className="flex items-center px-4 py-2 rounded-md hover:text-theme-bg hover:bg-theme-text"
+              onClick={handleLinkClick}
             >
               <RiBarChart2Line className="mr-2" />
               User stats
             </Link>
             <Link
-              href="/profile"
+              href="/account-settings"
               className="flex items-center px-4 py-2 rounded-md hover:text-theme-bg hover:bg-theme-text"
-            >
-              <RiEarthLine className="mr-2" />
-              Public profile
-            </Link>
-            <Link
-              href="/settings"
-              className="flex items-center px-4 py-2 rounded-md hover:text-theme-bg hover:bg-theme-text"
+              onClick={handleLinkClick}
             >
               <RiSettings3Line className="mr-2" />
               Account settings
             </Link>
             <button
-              onClick={() => signOut()}
+              onClick={() => {
+                handleLinkClick()
+                signOut();
+              }}
               className="w-full text-left flex items-center px-4 py-2 rounded-md hover:text-theme-bg hover:bg-theme-text"
             >
               <RiLogoutBoxLine className="mr-2" />

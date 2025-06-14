@@ -1,9 +1,9 @@
 
-import LeaderboardPage from '@/components/leaderboard/LeaderboardPage'
+import Leaderboard from '@/components/leaderboard/Leaderboard'
 import React from 'react'
 
-export default function LeaderBoard() {
+export default function LeaderBoardPage() {
   return (
-    <LeaderboardPage/>
+    <Leaderboard/>
   )
 }

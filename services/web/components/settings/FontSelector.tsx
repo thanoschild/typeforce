@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useFont } from "@/context/FontContext";
-import { FontType } from "@/lib/font";
+import { FontType, defaultFont } from "@/lib/font";
 import { IoClose } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import { MdOutlineFontDownload } from "react-icons/md";
+
 
 export default function FontSelector() {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function FontSelector() {
         </p>
         <div className="flex items-center justify-between">
           <div className="text-lg text-theme-main font-extrabold capitalize">
-            {availableFonts[currentFont] || "Default"}
+            {currentFont || defaultFont}
           </div>
 
           <button
@@ -86,21 +87,21 @@ export default function FontSelector() {
 
               <div className="p-6 h-[calc(100%-4rem)] overflow-y-auto">
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {Object.entries(availableFonts).map(([id, name]) => (
+                  {availableFonts.map((fontName) => (
                     <button
-                      key={id}
-                      onClick={() => handleFontChange(id as FontType)}
+                      key={fontName}
+                      onClick={() => handleFontChange(fontName)}
                       className={twMerge(
                         "p-4 rounded-lg transition-all hover:scale-105",
                         "border border-transparent hover:border-theme-main",
-                        currentFont === id && "border-theme-main"
+                        currentFont === fontName && "border-theme-main"
                       )}
-                      style={{ fontFamily: `"${name}", monospace` }}
+                      style={{ fontFamily: `"${fontName}", monospace` }}
                     >
                       <div className="w-full max-w-[180px] mx-auto">
                         <p className="text-2xl text-theme-text mb-2">Aa</p>
                         <p className="mt-1.5 text-sm text-theme-text font-medium">
-                          {name}
+                          {fontName}
                         </p>
                       </div>
                     </button>
