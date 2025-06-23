@@ -5,6 +5,8 @@ export type LeaderboardDataType = {
   accuracy: number;
   time: number;
   mode: string;
+  modeOptions: number;
+  createdAt: Date;
 };
 
 export type LeaderboardEntry = Omit<LeaderboardDataType, "rank">;

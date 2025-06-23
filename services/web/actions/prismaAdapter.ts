@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "db/src";
 import { AdapterUser } from "next-auth/adapters";
+import {generateRandomName} from "lib/utils"
 
 export function CustomPrismaAdapter() {
   return {
@@ -20,7 +21,7 @@ export function CustomPrismaAdapter() {
       return await prisma.user.create({
         data: {
           name: data.name ?? data.email.split("@")[0],
-          username: data.email.split("@")[0],
+          username: generateRandomName() || data.email.split("@")[0],
           email: data.email,
           image: data.image,
         },

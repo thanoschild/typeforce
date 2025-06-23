@@ -3,6 +3,18 @@ import { twMerge } from "tailwind-merge";
 import { generate } from "random-words";
 import { Test } from "@prisma/client";
 import { Word } from "@/types/words";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  animals,
+  colors,
+  names,
+  starWars,
+  countries,
+  languages,
+} from 'unique-names-generator';
+
+const allDictionaries = [adjectives, animals, colors, names, starWars, countries, languages];
 
 interface TestCountData {
   date: string;
@@ -47,65 +59,20 @@ export const calculateAccuracy = (userInput: string, text: string) => {
   return Number(accuracy.toFixed(2));
 };
 
-export const calculateTotalTypingTime = (tests: Test[]): string => {
-  const totalSeconds = tests.reduce((sum, test) => sum + test.time, 0);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  return `${hours}h ${minutes}m`;
-};
+export const formatDate = (input: Date | string): string => {
+  const date = new Date(input);
+  if (isNaN(date.getTime())) return "Invalid Date";
 
-export const getRecentTests = (tests: Test[]) => {
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-  return tests
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .slice(0, 7)
-    .map((test) => ({
-      date: daysOfWeek[new Date(test.createdAt).getDay()],
-      wpm: test.wpm,
-    }));
-};
-
-export const getAllTimeBestScores = (tests: Test[]) => {
-  const bestScores = {
-    time: {
-      "15s": 0,
-      "30s": 0,
-    },
-    words: {
-      "10": 0,
-      "25": 0,
-      "50": 0,
-    },
-  };
-
-  tests.forEach((test) => {
-    if (test.mode === "time" && test.modeOption === 15) {
-      bestScores.time["15s"] = Math.max(bestScores.time["15s"], test.wpm);
-    }
-    if (test.mode === "time" && test.modeOption === 30) {
-      bestScores.time["30s"] = Math.max(bestScores.time["30s"], test.wpm);
-    }
-    if (test.mode === "words" && test.modeOption === 10) {
-      bestScores.words["10"] = Math.max(bestScores.words["10"], test.wpm);
-    }
-    if (test.mode === "words" && test.modeOption === 25) {
-      bestScores.words["25"] = Math.max(bestScores.words["25"], test.wpm);
-    }
-    if (test.mode === "words" && test.modeOption === 50) {
-      bestScores.words["50"] = Math.max(bestScores.words["50"], test.wpm);
-    }
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
-
-  return bestScores;
 };
 
 export const getTestCountByDate = (tests: Test[]): TestCountData[] => {
   const countMap = tests.reduce((acc, test) => {
-    const date = test.createdAt.toISOString().split('T')[0];
+    const date = test.createdAt.toISOString().split("T")[0];
     acc[date] = (acc[date] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -124,3 +91,16 @@ export const generateRoomCode = () => {
   }
   return code;
 };
+
+function getRandomDictionaries(count = 2) {
+  const shuffled = [...allDictionaries].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+export function generateRandomName(): string {
+  return uniqueNamesGenerator({
+    dictionaries: getRandomDictionaries(2),
+    separator: '',
+    style: 'capital',
+  });
+}

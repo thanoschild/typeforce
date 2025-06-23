@@ -15,7 +15,7 @@ export default function UserTestTable({data}: UserTestProps) {
     });
   };
   const limitedData = data.slice(0, 10);
-
+  console.log("limited: ", limitedData)
   return (
     <div className="flex flex-col gap-4">
       <span className='text-theme-text font-semibold text-3xl'>Recent Tests</span>

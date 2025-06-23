@@ -2,8 +2,9 @@
 
 import React, { useEffect } from "react";
 import { LeaderboardDataType } from "@/types/leaderboard";
-import { LuCrown } from "react-icons/lu";
 import Input from "../core/Input";
+import {formatDate} from "@/lib/utils"
+import { LuCrown } from "react-icons/lu";
 
 interface LeaderboardTableProps {
   searchTerm: string;
@@ -24,6 +25,8 @@ export default function LeaderboardTable({
     }
   }, [countdown, setSearchTerm]);
 
+
+  console.log("data: ", leaderboardData)
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="p-4 flex items-center justify-between">
@@ -45,11 +48,12 @@ export default function LeaderboardTable({
           <thead>
             <tr className="text-left text-theme-sub">
               <th className="py-3 px-4">Rank</th>
-              <th className="py-3 px-4">name</th>
-              <th className="py-3 px-4 text-right">wpm</th>
-              <th className="py-3 px-4 text-right">accuracy</th>
+              <th className="py-3 px-4">Name</th>
+              <th className="py-3 px-4 text-right">WPM</th>
+              <th className="py-3 px-4 text-right">Accuracy</th>
               <th className="py-3 px-4 text-right">Time</th>
               <th className="py-3 px-4 text-right">Mode</th>
+              <th className="py-3 px-4 text-right">Date</th>
             </tr>
           </thead>
           <tbody>
@@ -87,8 +91,11 @@ export default function LeaderboardTable({
                     {user.accuracy.toFixed(2)}%
                   </td>
                   <td className="py-4 px-4 text-right">{user.time}s</td>
-                  <td className="py-4 px-4 text-right whitespace-nowrap last:rounded-r-lg">
+                  <td className="py-4 px-4 text-right">
                     {user.mode}
+                  </td>
+                  <td className="py-4 px-4 text-right whitespace-nowrap last:rounded-r-lg">
+                    {formatDate(user.createdAt)}
                   </td>
                 </tr>
               ))

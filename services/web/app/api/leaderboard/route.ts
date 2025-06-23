@@ -41,6 +41,8 @@ async function getCombinedLeaderboard(
             accuracy: parsed.accuracy,
             time: parsed.time,
             mode: parsed.mode,
+            modeOptions: parsed.modeOptions,
+            createdAt: parsed.createdAt
           },
         });
       }
@@ -98,6 +100,8 @@ export async function GET(request: NextRequest) {
         accuracy: parsed.accuracy,
         time: parsed.time,
         mode: parsed.mode,
+        modeOptions: parsed.modeOption,
+        createdAt: parsed.createdAt
       });
     }
 
