@@ -33,14 +33,14 @@ export function FontProvider({ children }: { children: ReactNode }) {
       setCurrentFont(font);
       applyFont(font);
       console.log("set font");
-      localStorage.setItem("preferred-font", font);
+      localStorage.setItem("typeforce-font", font);
     },
     [applyFont]
   );
 
   useLayoutEffect(() => {
     if (typeof window !== "undefined" && !alreadyApplied.current) {
-      const savedFont = localStorage.getItem("preferred-font") || defaultFont;
+      const savedFont = localStorage.getItem("typeforce-font") || defaultFont;
       const validFont = availableFonts.includes(savedFont as FontType)
         ? (savedFont as FontType)
         : defaultFont;

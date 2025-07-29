@@ -5,6 +5,7 @@ import { useTypingTest } from "@/context/TypingContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateAccuracy, calculateWPM, parseWords } from "@/lib/utils";
 import { generateRandomWords } from "@/lib/utils";
+import { incrementStat } from "@/actions/stats";
 import Characters, { Character } from "./Characters";
 import Result from "./Result";
 import { Word } from "@/types/words";
@@ -112,6 +113,7 @@ export default function Interface() {
     if (userInput.length === 1 && !timeStarted) {
       setRaceStarted(true);
       setTimeStarted(true);
+      incrementStat('testStarted');
     }
   }, [userInput, timeStarted]);
 

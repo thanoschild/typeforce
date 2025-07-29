@@ -1,6 +1,7 @@
 "use server";
 
 import { getVerificationTokenByToken } from "@/actions/token";
+import { incrementStat } from "@/actions/stats";
 import prisma from "db/src";
 
 export const verification = async (token: string) => {
@@ -14,6 +15,7 @@ export const verification = async (token: string) => {
     return { success: false, message: "Token has expired" };
   }
 
+  incrementStat('totalUsers');
   await prisma.user.create({
     data: {
        name: currentUser.name ?? currentUser.username,

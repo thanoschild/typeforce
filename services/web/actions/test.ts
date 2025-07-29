@@ -6,6 +6,7 @@ import prisma from "db/src";
 import { getUserByEmail } from "@/actions/user";
 import { authOptions } from "@/lib/auth";
 import { updateLeaderboards } from "./leaderboard";
+import { incrementStat } from "@/actions/stats";
 import { User, Test } from "@prisma/client";
 
 export const getTest = async (userId: string): Promise<Test[]> => {
@@ -31,7 +32,9 @@ export const addTest = async ({
         message: "Missing required fields",
       };
     }
-
+    
+    incrementStat('testCompleted');
+    incrementStat('typingTime', time);
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -40,7 +43,7 @@ export const addTest = async ({
         message: "Unauthorized session",
       };
     }
-
+    
     const user = await getUserByEmail(session.user.email);
     if (!user) {
       return {

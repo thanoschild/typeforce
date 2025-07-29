@@ -45,7 +45,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setCurrentTheme(themeId);
         setThemeColors(colors);
         applyThemeColors(colors);
-        localStorage.setItem("preferred-theme", themeId);
+        localStorage.setItem("typeforce-theme", themeId);
       } catch (error) {
         console.error("Failed to set theme:", error);
         setCurrentTheme(defaultTheme);
@@ -59,7 +59,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize theme from localStorage on mount
   useLayoutEffect(() => {
     if (typeof window !== "undefined" && !alreadyApplied.current) {
-      const savedTheme = localStorage.getItem("preferred-theme") || defaultTheme;
+      const savedTheme = localStorage.getItem("typeforce-theme") || defaultTheme;
       alreadyApplied.current = true;
       setTheme(savedTheme);
     }

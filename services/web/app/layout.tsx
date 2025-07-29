@@ -28,7 +28,7 @@ export default function RootLayout(props: { children: ReactNode }) {
             __html: `
               (function() {
                 try {
-                  const theme = localStorage.getItem('preferred-theme') || 'carbon';
+                  const theme = localStorage.getItem('typeforce-theme') || 'carbon';
                   const xhr = new XMLHttpRequest();
                   xhr.open('GET', 'themes/' + theme + '.json', false); // Sync request
                   xhr.send(null);
@@ -42,7 +42,7 @@ export default function RootLayout(props: { children: ReactNode }) {
                     }
                   }
                   
-                  const preferredFont = localStorage.getItem('preferred-font') || 'Roboto Mono';
+                  const preferredFont = localStorage.getItem('typeforce-font') || 'Roboto Mono';
                   document.documentElement.style.fontFamily = '"' + preferredFont + '", monospace';
                 } catch (e) {
                   console.error('Theme preload error:', e);

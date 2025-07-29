@@ -3,18 +3,6 @@ import { twMerge } from "tailwind-merge";
 import { generate } from "random-words";
 import { Test } from "@prisma/client";
 import { Word } from "@/types/words";
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  animals,
-  colors,
-  names,
-  starWars,
-  countries,
-  languages,
-} from 'unique-names-generator';
-
-const allDictionaries = [adjectives, animals, colors, names, starWars, countries, languages];
 
 interface TestCountData {
   date: string;
@@ -91,16 +79,3 @@ export const generateRoomCode = () => {
   }
   return code;
 };
-
-function getRandomDictionaries(count = 2) {
-  const shuffled = [...allDictionaries].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
-
-export function generateRandomName(): string {
-  return uniqueNamesGenerator({
-    dictionaries: getRandomDictionaries(2),
-    separator: '',
-    style: 'capital',
-  });
-}
