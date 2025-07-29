@@ -52,3 +52,50 @@ export const getUserById = async (id: string) => {
     return null;
   }
 };
+
+
+export const updateUsername = async (userId: string, newUsername: string) => {
+  try {
+    const existingUser = await getUserByUserName(newUsername);
+    
+    if (existingUser) {
+      throw new Error("Username already exists");
+    }
+    
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        username: newUsername
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        updatedAt: true
+      }
+    });
+    
+    return {
+      success: true,
+      user: updatedUser,
+      message: "Username updated successfully"
+    };
+    
+  } catch (error) {
+    console.error("Error updating username:", error);
+    
+    if (error instanceof Error) {
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+    
+    return {
+      success: false,
+      error: "Unable to update username"
+    };
+  }
+};

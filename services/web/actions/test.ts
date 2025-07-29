@@ -32,6 +32,13 @@ export const addTest = async ({
         message: "Missing required fields",
       };
     }
+
+    if(mode !== "words" && mode !== "time") {
+      return {
+        success: false,
+        message: "Invalid test",
+      };
+    }   
     
     incrementStat('testCompleted');
     incrementStat('typingTime', time);
@@ -52,7 +59,7 @@ export const addTest = async ({
       };
     }
 
-    if (validateTest(wpm, accuracy, user)) {
+    if (validateTest(wpm, accuracy, time, user)) {
       const test = await createTest({ wpm, accuracy, time, mode, modeOption }, user);
       void updateUserStats({ wpm, accuracy, time, mode, modeOption }, user);
       return {
@@ -101,11 +108,11 @@ const createTest = async ({ wpm, accuracy, time, mode, modeOption }: AddTestType
   return test;
 };
 
-const validateTest = (wpm: number, accuracy: number, user: User) => {
+const validateTest = (wpm: number, accuracy: number, time: number, user: User) => {
   if (!user.AvgWpm || !user.AvgAccuracy) return true;
-  const wpmDifference = user.AvgWpm - wpm;
-  const accuracyDifference = user.AvgAccuracy - accuracy;
-  return wpmDifference <= 30 && accuracyDifference <= 30;
+  if(wpm > 300) return false; 
+  if(time === 0) return false;
+  return true;
 };
 
 const getBestTest = ({ wpm, accuracy, time, mode, modeOption }: AddTestTypes, user: User) => {

@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="gap-6 text-theme-sub hover:text-theme-text">
           <Link
             className="inline-flex items-center gap-2"
-            href="https://github.com/thanoschild"
+            href="https://github.com/thanoschild/typeforce"
             target="_blank"
             rel="noopener noreferrer"
           >

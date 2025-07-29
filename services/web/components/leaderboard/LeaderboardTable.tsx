@@ -101,7 +101,7 @@ export default function LeaderboardTable({
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="text-center py-8 text-theme-sub bg-theme-sub-alt first:rounded-l-lg last:rounded-r-lg">
+                <td colSpan={7} className="text-center py-8 text-theme-sub bg-theme-sub-alt first:rounded-l-lg last:rounded-r-lg">
                   No results found
                 </td>
               </tr>

@@ -1,3 +1,5 @@
+'use server'
+
 import redis from "@/lib/redis";
 import { Test } from "@prisma/client";
 import { APP_NAME } from "@/constants";
@@ -45,5 +47,47 @@ export const updateLeaderboards = async (test: Test, userId: string, username: s
   if (!prevAllTimeScore || score > Number(prevAllTimeScore)) {
     await redis.zadd(allTimeKey, score, userId);
     await redis.set(allTimeDataKey, testString);
+  }
+};
+
+export const updateLeaderboardUsername = async (userId: string, newUsername: string) => {
+  try {
+    const modes = ['words', 'time'];
+    const today = new Date().toISOString().split("T")[0];
+    
+    const updatePromises = [];
+    
+    for (const mode of modes) {
+      // Update daily leaderboard data
+      const dailyDataKey = `${APP_NAME}:leaderboard:daily:${mode}:${today}:${userId}`;
+      const dailyData = await redis.get(dailyDataKey);
+      
+      if (dailyData) {
+        const parsedData = JSON.parse(dailyData);
+        parsedData.username = newUsername;
+        updatePromises.push(
+          redis.set(dailyDataKey, JSON.stringify(parsedData), 'KEEPTTL')
+        );
+      }
+
+      // Update all-time leaderboard data
+      const allTimeDataKey = `${APP_NAME}:leaderboard:alltime:${mode}:${userId}`;
+      const allTimeData = await redis.get(allTimeDataKey);
+      
+      if (allTimeData) {
+        const parsedData = JSON.parse(allTimeData);
+        parsedData.username = newUsername;
+        updatePromises.push(
+          redis.set(allTimeDataKey, JSON.stringify(parsedData))
+        );
+      }
+    }
+    
+    await Promise.all(updatePromises);
+    console.log(`Updated leaderboard username for user ${userId} to ${newUsername}`);
+    
+  } catch (error) {
+    console.error('Error updating leaderboard username:', error);
+    throw error;
   }
 };
